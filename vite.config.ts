@@ -16,6 +16,6 @@ export default defineConfig({
   },
   // 添加下面这块配置，防止 Vite 开发服务器去扫描测试用例包
   optimizeDeps: {
-    exclude: ['@vue/test-utils']
+    exclude: ['@vue/test-utils', 'maplibre-gl']
   }
 })

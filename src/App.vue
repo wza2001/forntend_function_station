@@ -1,4 +1,5 @@
 <template>
+  <ViewMap />
   <div class="first_parts">
     <div class="card">
       <spatialchart :chart-option="pieOption" />
@@ -16,6 +17,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import spatialchart from './components/spatialchart.vue';
+import ViewMap from './components/ViewMap.vue';
 
 const barOption = ref({
   title: { text: '区域建筑高度分布', textStyle: { color: '#fff', fontSize: 14 } },

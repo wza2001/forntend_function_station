@@ -1,0 +1,83 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "height": 50,
+        "building:levels": 10
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [54.37, 24.47],
+            [54.371, 24.47],
+            [54.371, 24.471],
+            [54.37, 24.471],
+            [54.37, 24.47]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "height": "75",
+        "building:levels": "15"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [54.372, 24.47],
+            [54.373, 24.47],
+            [54.373, 24.471],
+            [54.372, 24.471],
+            [54.372, 24.47]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "elevation": 120
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [54.37, 24.472],
+            [54.371, 24.472],
+            [54.371, 24.473],
+            [54.37, 24.473],
+            [54.37, 24.472]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "elevation": "200"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [54.372, 24.472],
+            [54.373, 24.472],
+            [54.373, 24.473],
+            [54.372, 24.473],
+            [54.372, 24.472]
+          ]
+        ]
+      }
+    }
+  ]
+}
