@@ -1,21 +1,27 @@
 <template>
-  <div class="first_parts">
-    <div class="card">
-      <spatialchart :chart-option="pieOption" />
-    </div>
-    <div class="card">
-      <spatialchart :chart-option="barOption" />
-    </div>
-  </div>
-  <div class="LandUse">
+  <div class="dashboard-root">
+    <!-- 1. 全屏底层地图 -->
+    <ViewMap geojson-url="/abudhabi_city_buildings.geojson" />
 
+    <!-- 2. 左侧悬浮图表面板 -->
+    <div class="first_parts">
+      <div class="card">
+        <spatialchart :chart-option="pieOption" />
+      </div>
+      <div class="card">
+        <spatialchart :chart-option="barOption" />
+      </div>
+    </div>
 
+    <!-- 3. 其他功能区占位（如用地分析） -->
+    <div class="land-use"></div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import spatialchart from './components/spatialchart.vue';
+import ViewMap from '@/components/ViewMap.vue';
+import spatialchart from '@/components/spatialchart.vue';
 
 const barOption = ref({
   title: { text: '区域建筑高度分布', textStyle: { color: '#fff', fontSize: 14 } },
@@ -60,22 +66,31 @@ const pieOption = ref({
 </script>
 
 <style scoped>
-.first_parts {
-  position: absolute;  /* 绝对定位，脱离文档流浮在底层上 */
-  top: 20px;           /* 距离顶部 20px */
-  left: 20px;          /* 距离左侧 20px（若放右侧改成 right: 20px） */
-  width: 320px;        /* 固定面板宽度 */
-  z-index: 10;         /* 确保层级高于背景地图 */
-
-  display: flex;
-  flex-direction: column; /* 垂直从上到下排列 */
-  gap: 16px;
+.dashboard-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
+
+.first_parts {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 320px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  pointer-events: auto;
+}
+
 .card {
   background: rgba(30, 30, 30, 0.85);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 </style>
