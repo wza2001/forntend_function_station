@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { Map } from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 const props = withDefaults(
@@ -32,8 +33,8 @@ onMounted(() => {
       bearing: -17.6,
       maxPitch: 85,           // 解锁大角度俯仰限制
       antialias: true         // 开启抗锯齿，提升 3D 白模边缘质感
-    });
-    (window as any).map = mapInstance;
+    } as unknown as maplibregl.MapOptions);
+    (window as unknown as { map: maplibregl.Map }).map = mapInstance;
 
     // 调整滚轮缩放阻尼（使缩放更平滑稳定）
     mapInstance.scrollZoom.setWheelZoomRate(1 / 450);
@@ -77,6 +78,36 @@ onMounted(() => {
   } catch (err) {
     console.error('地图初始化失败:', err);
   }
+});
+
+// Expose methods for parent components
+const flyTo = (options: maplibregl.FlyToOptions) => {
+  if (mapInstance) {
+    mapInstance.flyTo(options);
+  }
+};
+
+const setViewMode = (is3D: boolean) => {
+  if (!mapInstance) return;
+
+  if (is3D) {
+    mapInstance.easeTo({
+      pitch: 60,
+      bearing: -17.6,
+      duration: 1000
+    });
+  } else {
+    mapInstance.easeTo({
+      pitch: 0,
+      bearing: 0,
+      duration: 1000
+    });
+  }
+};
+
+defineExpose({
+  flyTo,
+  setViewMode
 });
 
 onUnmounted(() => {

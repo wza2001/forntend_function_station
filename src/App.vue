@@ -1,19 +1,25 @@
 <template>
   <div class="dashboard-root">
     <!-- 1. 全屏底层地图 -->
-    <ViewMap geojson-url="/abudhabi_city_buildings.geojson" />
+    <ViewMap ref="viewMapRef" geojson-url="/abudhabi_city_buildings.geojson" />
 
     <!-- 2. 左侧悬浮图表面板 -->
     <div class="first_parts">
       <div class="card">
-        <spatialchart :chart-option="pieOption" />
+        <SpatialChart :chart-option="pieOption" />
       </div>
       <div class="card">
-        <spatialchart :chart-option="barOption" />
+        <SpatialChart :chart-option="barOption" />
       </div>
     </div>
 
-    <!-- 3. 其他功能区占位（如用地分析） -->
+    <!-- 3. 地图控制面板 -->
+    <MapControls @preset-clicked="handlePresetClick" @mode-changed="handleModeChange" />
+
+    <!-- 4. 数据面板 -->
+    <DataPanel />
+
+    <!-- 5. 其他功能区占位（如用地分析） -->
     <div class="land-use"></div>
   </div>
 </template>
@@ -21,9 +27,41 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import ViewMap from '@/components/ViewMap.vue';
-import spatialchart from '@/components/spatialchart.vue';
+import SpatialChart from '@/components/SpatialChart.vue';
+import MapControls from '@/components/MapControls.vue';
+import DataPanel from '@/components/DataPanel.vue';
 
-const barOption = ref({
+const viewMapRef = ref<InstanceType<typeof ViewMap> | null>(null);
+
+const handlePresetClick = (preset: 'downtown' | 'overview') => {
+  if (!viewMapRef.value) return;
+
+  if (preset === 'downtown') {
+    viewMapRef.value.flyTo({
+      center: [54.363, 24.496],
+      zoom: 15,
+      pitch: 60,
+      bearing: -17.6,
+      duration: 2000
+    });
+  } else if (preset === 'overview') {
+    viewMapRef.value.flyTo({
+      center: [54.36, 24.48],
+      zoom: 12,
+      pitch: 0,
+      bearing: 0,
+      duration: 2000
+    });
+  }
+};
+
+const handleModeChange = (is3D: boolean) => {
+  if (viewMapRef.value) {
+    viewMapRef.value.setViewMode(is3D);
+  }
+};
+
+const barOption = ref<any>({
   title: { text: '区域建筑高度分布', textStyle: { color: '#fff', fontSize: 14 } },
   tooltip: { trigger: 'axis' },
   grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
@@ -42,10 +80,10 @@ const barOption = ref({
   ]
 });
 
-const pieOption = ref({
+const pieOption = ref<any>({
   title: { text: '空域/用地类型占比', textStyle: { color: '#fff', fontSize: 14 } },
   tooltip: { trigger: 'item' },
-  legend: { bottom: '0', textStyle: { color: '#ccc' } },
+  legend: { bottom: 0, textStyle: { color: '#ccc' } },
   series: [
     {
       name: '用地类型',
