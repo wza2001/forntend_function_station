@@ -1,5 +1,113 @@
 # Guide: `src/App.vue`
 
+## Full Original Source Code (完整原始源代码)
+```vue
+<template>
+  <div class="dashboard-root">
+    <!-- 1. 全屏底层地图 -->
+    <ViewMap geojson-url="/abudhabi_city_buildings.geojson" />
+
+    <!-- 2. 左侧悬浮图表面板 -->
+    <div class="first_parts">
+      <div class="card">
+        <spatialchart :chart-option="pieOption" />
+      </div>
+      <div class="card">
+        <spatialchart :chart-option="barOption" />
+      </div>
+    </div>
+
+    <!-- 3. 其他功能区占位（如用地分析） -->
+    <div class="land-use"></div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import ViewMap from '@/components/ViewMap.vue';
+import spatialchart from '@/components/spatialchart.vue';
+
+const barOption = ref({
+  title: { text: '区域建筑高度分布', textStyle: { color: '#fff', fontSize: 14 } },
+  tooltip: { trigger: 'axis' },
+  grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+  xAxis: {
+    type: 'category',
+    data: ['0-10m', '10-30m', '30-50m', '50-100m', '>100m'],
+    axisLabel: { color: '#ccc' }
+  },
+  yAxis: { type: 'value', axisLabel: { color: '#ccc' } },
+  series: [
+    {
+      data: [120, 200, 150, 80, 40],
+      type: 'bar',
+      itemStyle: { color: '#3b82f6', borderRadius: [4, 4, 0, 0] }
+    }
+  ]
+});
+
+const pieOption = ref({
+  title: { text: '空域/用地类型占比', textStyle: { color: '#fff', fontSize: 14 } },
+  tooltip: { trigger: 'item' },
+  legend: { bottom: '0', textStyle: { color: '#ccc' } },
+  series: [
+    {
+      name: '用地类型',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: false,
+      itemStyle: { borderRadius: 6, borderColor: '#1e1e1e', borderWidth: 2 },
+      label: { show: false },
+      data: [
+        { value: 1048, name: '住宅区' },
+        { value: 735, name: '商业区' },
+        { value: 580, name: '绿地与公园' },
+        { value: 300, name: '禁飞管控区' }
+      ]
+    }
+  ]
+});
+</script>
+
+<style scoped>
+.dashboard-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.first_parts {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 320px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  pointer-events: auto;
+}
+
+.card {
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+</style>
+```
+
+## Imports Breakdown (导入部分解析)
+- `import { ref } from 'vue';`: Imports the `ref` function from Vue. This function is used to create reactive data variables, meaning when the data changes, the UI updates automatically.
+  (从 Vue 导入 `ref` 函数。此函数用于创建响应式数据变量，这意味着当数据更改时，UI 会自动更新。)
+- `import ViewMap from '@/components/ViewMap.vue';`: Imports the custom `ViewMap` component. This allows you to use `<ViewMap />` in the template to render the 3D map.
+  (导入自定义的 `ViewMap` 组件。这允许你在模板中使用 `<ViewMap />` 来渲染 3D 地图。)
+- `import spatialchart from '@/components/spatialchart.vue';`: Imports the custom `spatialchart` component. This allows you to use `<spatialchart />` to render the ECharts visualizations.
+  (导入自定义的 `spatialchart` 组件。这允许你使用 `<spatialchart />` 来渲染 ECharts 可视化图表。)
+
 ## File Purpose & Architecture (文件用途与架构)
 `src/App.vue` is the "Root Component" of your Vue application. It is the topmost component in the component tree, loaded directly by `main.ts`.
 (`src/App.vue` 是你 Vue 应用程序的“根组件”。它是组件树中最顶层的组件，由 `main.ts` 直接加载。)

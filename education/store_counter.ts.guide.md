@@ -1,5 +1,27 @@
 # Guide: `src/stores/counter.ts`
 
+## Full Original Source Code (完整原始源代码)
+```typescript
+import { ref, computed } from 'vue'
+import { defineStore } from 'pinia'
+
+export const useCounterStore = defineStore('counter', () => {
+  const count = ref(0)
+  const doubleCount = computed(() => count.value * 2)
+  function increment() {
+    count.value++
+  }
+
+  return { count, doubleCount, increment }
+})
+```
+
+## Imports Breakdown (导入部分解析)
+- `import { ref, computed } from 'vue'`: Imports Vue's Composition API functions. `ref` creates the actual state variables, and `computed` creates reactive getters that automatically update when the state they depend on changes.
+  (导入 Vue 的组合式 API 函数。`ref` 创建实际的状态变量，而 `computed` 创建响应式的 getters，它们会在其依赖的状态改变时自动更新。)
+- `import { defineStore } from 'pinia'`: Imports Pinia's factory function. This is required to define a new global store and hook it into the Vue DevTools and application context.
+  (导入 Pinia 的工厂函数。这是定义新的全局 store 并将其挂接到 Vue DevTools 和应用程序上下文中所必需的。)
+
 ## File Purpose & Architecture (文件用途与架构)
 This file defines a **Pinia Store**. Pinia is the official state management library for Vue 3.
 (此文件定义了一个 **Pinia Store (存储)**。Pinia 是 Vue 3 的官方状态管理库。)

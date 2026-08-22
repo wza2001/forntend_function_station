@@ -1,5 +1,38 @@
 # Guide: `src/router/index.ts`
 
+## Full Original Source Code (完整原始源代码)
+```typescript
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: HomeView,
+    },
+    {
+      path: '/about',
+      name: 'about',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AboutView.vue'),
+    },
+  ],
+})
+
+export default router
+```
+
+## Imports Breakdown (导入部分解析)
+- `import { createRouter, createWebHistory } from 'vue-router'`: Imports the factory functions needed to build the router instance and configure the HTML5 history mode (clean URLs).
+  (导入构建路由器实例并配置 HTML5 历史模式（干净的 URL）所需的工厂函数。)
+- `import HomeView from '../views/HomeView.vue'`: Imports the HomeView component eagerly. Because it is imported at the top level, its code is bundled into the initial download when the app starts.
+  (预先导入 HomeView 组件。因为它是在顶层导入的，所以它的代码在应用程序启动时会被打包到初始下载中。)
+
 ## File Purpose & Architecture (文件用途与架构)
 This file configures **Vue Router**, the official routing library for Vue.
 (此文件配置了 **Vue Router**，即 Vue 的官方路由库。)

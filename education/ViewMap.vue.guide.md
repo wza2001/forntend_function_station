@@ -1,5 +1,113 @@
 # Guide: `src/components/ViewMap.vue`
 
+## Full Original Source Code (完整原始源代码)
+```vue
+<template>
+  <div ref="mapContainer" class="map-view-container"></div>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+import { Map } from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+
+const props = withDefaults(
+  defineProps<{
+    geojsonUrl?: string;
+  }>(),
+  {
+    geojsonUrl: '/abudhabi_city_buildings.geojson'
+  }
+);
+
+const mapContainer = ref<HTMLElement | null>(null);
+let mapInstance: Map | null = null;
+
+onMounted(() => {
+  if (!mapContainer.value) return;
+
+  try {
+    mapInstance = new Map({
+      container: mapContainer.value,
+      style: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json',
+      center: [54.363, 24.496],
+      zoom: 14.5,             // 推荐拉近到 14.5~15（13.5 略远，建筑细节不易看清）
+      pitch: 60,              // 初始倾斜 55°~65°，3D 立体感更强
+      bearing: -17.6,
+      maxPitch: 85,           // 解锁大角度俯仰限制
+      antialias: true         // 开启抗锯齿，提升 3D 白模边缘质感
+    });
+    (window as any).map = mapInstance;
+
+    // 调整滚轮缩放阻尼（使缩放更平滑稳定）
+    mapInstance.scrollZoom.setWheelZoomRate(1 / 450);
+
+    mapInstance.on('load', () => {
+      if (!mapInstance) return;
+
+      // 1. 加载 GeoJSON 建筑数据源
+      mapInstance.addSource('buildings-source', {
+        type: 'geojson',
+        data: props.geojsonUrl
+      });
+
+      // 2. 渲染 3D 建筑白模拉伸图层
+      mapInstance.addLayer({
+        id: 'buildings-3d',
+        type: 'fill-extrusion',
+        source: 'buildings-source',
+        paint: {
+        // 2. 基于高度动态渐变颜色
+          'fill-extrusion-color': [
+            'interpolate',
+            ['linear'], // 线性插值
+            ['coalesce', ['get', 'height'], 25], // 渐变依据的属性（高度）
+            0,   '#1e3a8a',  // 0m - 15m: 深海军蓝（低矮裙楼、平房）
+            30,  '#2563eb',  // 30m: 科技蓝（多层住宅）
+            60,  '#06b6d4',  // 60m: 青绿色/青色（中高层）
+            100, '#38bdf8',  // 100m: 亮天蓝（高层办公楼）
+            180, '#f59e0b',  // 180m+: 琥珀金/亮橙（地标/超高层建筑）
+            250, '#ef4444'   // 250m+: 警示红（极高建筑/空域危险源）
+          ],
+
+          'fill-extrusion-opacity': 0.85
+        }
+      });
+    });
+
+    mapInstance.on('error', (e) => {
+      console.warn('MapLibre 底图事件警告:', e);
+    });
+  } catch (err) {
+    console.error('地图初始化失败:', err);
+  }
+});
+
+onUnmounted(() => {
+  mapInstance?.remove();
+});
+</script>
+
+<style scoped>
+.map-view-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+</style>
+```
+
+## Imports Breakdown (导入部分解析)
+- `import { ref, onMounted, onUnmounted } from 'vue';`: Imports core Vue Composition API functions. `ref` creates reactive variables, `onMounted` lets you run code after the component is added to the page, and `onUnmounted` lets you run cleanup code before it is removed.
+  (导入核心 Vue 组合式 API 函数。`ref` 用于创建响应式变量，`onMounted` 让你在组件添加到页面后运行代码，而 `onUnmounted` 让你在组件被移除前运行清理代码。)
+- `import { Map } from 'maplibre-gl';`: Imports the main `Map` class from the MapLibre GL JS library, which is the engine used to render the 3D map canvas.
+  (从 MapLibre GL JS 库导入主 `Map` 类，这是用于渲染 3D 地图画布的引擎。)
+- `import 'maplibre-gl/dist/maplibre-gl.css';`: Imports the required CSS file for MapLibre. Without this, the map controls and popups would not display correctly.
+  (导入 MapLibre 所需的 CSS 文件。如果没有这个文件，地图控件和弹出窗口将无法正确显示。)
+
 ## File Purpose & Architecture (文件用途与架构)
 This file is a Vue Component dedicated to rendering a 3D Map using MapLibre GL JS.
 (此文件是一个专门用于使用 MapLibre GL JS 渲染 3D 地图的 Vue 组件。)

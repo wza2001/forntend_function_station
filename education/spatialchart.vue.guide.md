@@ -1,5 +1,64 @@
 # Guide: `src/components/spatialchart.vue`
 
+## Full Original Source Code (完整原始源代码)
+```vue
+<template>
+  <div class="wrapper_chart">
+    <v-chart class="chart" :option="chartOption" autoresize />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { use } from 'echarts/core';
+import { CanvasRenderer } from 'echarts/renderers';
+import { PieChart, BarChart } from 'echarts/charts';
+import {
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent
+} from 'echarts/components';
+import VChart from 'vue-echarts';
+
+use([
+  CanvasRenderer,
+  PieChart,
+  BarChart,
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent
+]);
+
+defineProps<{
+  chartOption: Record<string, any>;
+}>();
+</script>
+
+<style scoped>
+.wrapper_chart {
+  width: 100%;
+  height: 320px;
+}
+.chart {
+  width: 100%;
+  height: 100%;
+}
+</style>
+```
+
+## Imports Breakdown (导入部分解析)
+- `import { use } from 'echarts/core';`: Imports the `use` function which is required to register specific ECharts components and charts. This is the core of the tree-shaking process.
+  (导入 `use` 函数，该函数用于注册特定的 ECharts 组件和图表。这是摇树优化 (tree-shaking) 过程的核心。)
+- `import { CanvasRenderer } from 'echarts/renderers';`: Imports the rendering engine. ECharts can render using Canvas or SVG; this project explicitly chooses Canvas for better performance with large datasets.
+  (导入渲染引擎。ECharts 可以使用 Canvas 或 SVG 进行渲染；此项目明确选择了 Canvas，以便在处理大数据集时获得更好的性能。)
+- `import { PieChart, BarChart } from 'echarts/charts';`: Imports only the logic for Pie and Bar charts, avoiding the need to load code for unused chart types like lines or scatter plots.
+  (仅导入饼图和柱状图的逻辑，避免加载诸如折线图或散点图等未使用图表类型的代码。)
+- `import { TitleComponent, TooltipComponent, LegendComponent, GridComponent } from 'echarts/components';`: Imports UI components for the chart, such as the title, hover tooltips, data legends, and the layout grid.
+  (导入图表的 UI 组件，如标题、悬停提示框、数据图例和布局网格。)
+- `import VChart from 'vue-echarts';`: Imports the official Vue component wrapper for ECharts, which simplifies passing props and listening to resize events.
+  (导入 ECharts 的官方 Vue 组件包装器，它简化了传递 props 和监听调整大小事件的过程。)
+
 ## File Purpose & Architecture (文件用途与架构)
 This file is a reusable, wrapper Vue Component designed to render ECharts data visualizations.
 (此文件是一个可重用的包装型 Vue 组件，旨在渲染 ECharts 数据可视化图表。)

@@ -1,5 +1,40 @@
 # Guide: `vite.config.ts`
 
+## Full Original Source Code (完整原始源代码)
+```typescript
+import { fileURLToPath, URL } from 'node:url'
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueDevTools from 'vite-plugin-vue-devtools'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),
+    vueDevTools(),
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    },
+  },
+  // 添加下面这块配置，防止 Vite 开发服务器去扫描测试用例包
+  optimizeDeps: {
+    exclude: ['@vue/test-utils', 'maplibre-gl']
+  }
+})
+```
+
+## Imports Breakdown (导入部分解析)
+- `import { fileURLToPath, URL } from 'node:url'`: Imports built-in Node.js utilities to safely resolve file paths across different operating systems (Windows/Mac/Linux).
+  (导入内置的 Node.js 实用工具，以在不同的操作系统（Windows/Mac/Linux）上安全地解析文件路径。)
+- `import { defineConfig } from 'vite'`: Imports the configuration helper function to enable TypeScript intellisense for Vite settings.
+  (导入配置辅助函数，以启用 Vite 设置的 TypeScript 智能感知/代码补全。)
+- `import vue from '@vitejs/plugin-vue'`: Imports the official plugin required to parse and compile Vue SFCs (Single File Components).
+  (导入解析和编译 Vue SFC（单文件组件）所需的官方插件。)
+- `import vueDevTools from 'vite-plugin-vue-devtools'`: Imports the plugin that injects the Vue DevTools directly into the browser during local development.
+  (导入在本地开发期间将 Vue DevTools 直接注入浏览器的插件。)
+
 ## File Purpose & Architecture (文件用途与架构)
 `vite.config.ts` is the master configuration file for Vite, the build tool and development server used in this project.
 (`vite.config.ts` 是本项目中使用的构建工具和开发服务器 Vite 的主配置文件。)

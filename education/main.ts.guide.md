@@ -1,5 +1,35 @@
 # Guide: `src/main.ts`
 
+## Full Original Source Code (完整原始源代码)
+```typescript
+import './assets/main.css'
+
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+
+import App from './App.vue'
+import router from './router'
+
+const app = createApp(App)
+
+app.use(createPinia())
+app.use(router)
+
+app.mount('#app')
+```
+
+## Imports Breakdown (导入部分解析)
+- `import './assets/main.css'`: Imports the global CSS file. This process injects the styles into the application, affecting the visual layout of all components globally.
+  (导入全局 CSS 文件。此过程将样式注入到应用程序中，全局影响所有组件的视觉布局。)
+- `import { createApp } from 'vue'`: Imports the factory function to initialize a new Vue application instance from the core Vue library.
+  (从核心 Vue 库导入工厂函数，用于初始化新的 Vue 应用程序实例。)
+- `import { createPinia } from 'pinia'`: Imports the factory function to create a Pinia state management instance.
+  (导入工厂函数以创建 Pinia 状态管理实例。)
+- `import App from './App.vue'`: Imports the root Vue component. This component acts as the main container for the entire application interface.
+  (导入根 Vue 组件。此组件充当整个应用程序界面的主容器。)
+- `import router from './router'`: Imports the Vue Router instance configured in the local `router` directory, which handles page navigation.
+  (导入在本地 `router` 目录中配置的 Vue Router 实例，该实例处理页面导航。)
+
 ## File Purpose & Architecture (文件用途与架构)
 The `src/main.ts` file is the primary entry point for a Vue 3 Vite-based application.
 (`src/main.ts` 文件是基于 Vite 的 Vue 3 应用程序的主要入口点。)
