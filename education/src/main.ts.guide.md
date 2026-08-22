@@ -1,3 +1,7 @@
+---
+cssClass: wide-page
+---
+
 > [!multi-column|no-wrap]
 >
 >> [!note] `src/main.ts`
@@ -20,6 +24,11 @@
 >> ```
 >
 >> [!info] Guide Explanation (指南说明)
+
+>> ## File Relationships (文件关系)
+>> Links to: [[education/src/App.vue.guide]], [[education/src/router/index.ts.guide]], [[education/src/stores/counter.ts.guide]]
+>> Linked from: [[education/00_Architecture_Graph]]
+
 >> ## Imports Breakdown (导入部分解析)
 >> - `import './assets/main.css'`: Imports the global CSS file. This process injects the styles into the application, affecting the visual layout of all components globally.
 >>   (导入全局 CSS 文件。此过程将样式注入到应用程序中，全局影响所有组件的视觉布局。)

@@ -1,3 +1,7 @@
+---
+cssClass: wide-page
+---
+
 > [!multi-column|no-wrap]
 >
 >> [!note] `src/router/index.ts`
@@ -29,6 +33,10 @@
 >> ```
 >
 >> [!info] Guide Explanation (指南说明)
+
+>> ## File Relationships (文件关系)
+>> Linked from: [[education/src/main.ts.guide]]
+
 >> ## Imports Breakdown (导入部分解析)
 >> - `import { createRouter, createWebHistory } from 'vue-router'`: Imports the factory functions needed to build the router instance and configure the HTML5 history mode (clean URLs).
 >>   (导入构建路由器实例并配置 HTML5 历史模式（干净的 URL）所需的工厂函数。)

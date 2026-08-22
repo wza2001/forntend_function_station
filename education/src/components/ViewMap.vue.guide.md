@@ -1,3 +1,7 @@
+---
+cssClass: wide-page
+---
+
 > [!multi-column|no-wrap]
 >
 >> [!note] `src/components/ViewMap.vue`
@@ -102,6 +106,10 @@
 >> ```
 >
 >> [!info] Guide Explanation (指南说明)
+
+>> ## File Relationships (文件关系)
+>> Linked from: [[education/src/App.vue.guide]]
+
 >> ## Imports Breakdown (导入部分解析)
 >> - `import { ref, onMounted, onUnmounted } from 'vue';`: Imports core Vue Composition API functions. `ref` creates reactive variables, `onMounted` lets you run code after the component is added to the page, and `onUnmounted` lets you run cleanup code before it is removed.
 >>   (导入核心 Vue 组合式 API 函数。`ref` 用于创建响应式变量，`onMounted` 让你在组件添加到页面后运行代码，而 `onUnmounted` 让你在组件被移除前运行清理代码。)

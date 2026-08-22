@@ -1,3 +1,7 @@
+---
+cssClass: wide-page
+---
+
 > [!multi-column|no-wrap]
 >
 >> [!note] `vite.config.ts`
@@ -27,6 +31,10 @@
 >> ```
 >
 >> [!info] Guide Explanation (指南说明)
+
+>> ## File Relationships (文件关系)
+>> Standalone configuration file. Maps to the root of the project.
+
 >> ## Imports Breakdown (导入部分解析)
 >> - `import { fileURLToPath, URL } from 'node:url'`: Imports built-in Node.js utilities to safely resolve file paths across different operating systems (Windows/Mac/Linux).
 >>   (导入内置的 Node.js 实用工具，以在不同的操作系统（Windows/Mac/Linux）上安全地解析文件路径。)

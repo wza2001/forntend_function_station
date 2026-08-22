@@ -1,3 +1,7 @@
+---
+cssClass: wide-page
+---
+
 > [!multi-column|no-wrap]
 >
 >> [!note] Project Architecture Graph
@@ -42,6 +46,9 @@
 >> ```
 >
 >> [!info] Graph Explanation (图表说明)
+>> ## File Relationships (文件关系)
+>> [[education/src/main.ts.guide]], [[education/src/App.vue.guide]]
+
 >> ## Project Relationships Breakdown (项目关系解析)
 >>
 >> This Mermaid graph illustrates the overall architecture of your Vue 3 application.

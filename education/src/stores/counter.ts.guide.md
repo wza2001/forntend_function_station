@@ -1,3 +1,7 @@
+---
+cssClass: wide-page
+---
+
 > [!multi-column|no-wrap]
 >
 >> [!note] `src/stores/counter.ts`
@@ -18,6 +22,10 @@
 >> ```
 >
 >> [!info] Guide Explanation (指南说明)
+
+>> ## File Relationships (文件关系)
+>> Linked from: [[education/src/main.ts.guide]]
+
 >> ## Imports Breakdown (导入部分解析)
 >> - `import { ref, computed } from 'vue'`: Imports Vue's Composition API functions. `ref` creates the actual state variables, and `computed` creates reactive getters that automatically update when the state they depend on changes.
 >>   (导入 Vue 的组合式 API 函数。`ref` 创建实际的状态变量，而 `computed` 创建响应式的 getters，它们会在其依赖的状态改变时自动更新。)

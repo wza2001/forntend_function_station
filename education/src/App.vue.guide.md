@@ -1,3 +1,7 @@
+---
+cssClass: wide-page
+---
+
 > [!multi-column|no-wrap]
 >
 >> [!note] `src/App.vue`
@@ -102,6 +106,11 @@
 >> ```
 >
 >> [!info] Guide Explanation (指南说明)
+
+>> ## File Relationships (文件关系)
+>> Links to: [[education/src/components/ViewMap.vue.guide]], [[education/src/components/spatialchart.vue.guide]]
+>> Linked from: [[education/src/main.ts.guide]], [[education/00_Architecture_Graph]]
+
 >> ## Imports Breakdown (导入部分解析)
 >> - `import { ref } from 'vue';`: Imports the `ref` function from Vue. This function is used to create reactive data variables, meaning when the data changes, the UI updates automatically.
 >>   (从 Vue 导入 `ref` 函数。此函数用于创建响应式数据变量，这意味着当数据更改时，UI 会自动更新。)
