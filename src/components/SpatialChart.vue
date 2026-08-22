@@ -26,8 +26,10 @@ use([
   GridComponent
 ]);
 
+import type { EChartsOption } from 'echarts';
+
 defineProps<{
-  chartOption: Record<string, any>;
+  chartOption: EChartsOption;
 }>();
 </script>
 
