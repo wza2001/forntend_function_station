@@ -57,7 +57,7 @@ cssClass: wide-page
 >> ## File Relationships (文件关系)
 >> Linked from: [[education/src/App.vue.guide]]
 
->> ## Imports Breakdown (导入部分解析)
+> ## Imports Breakdown (导入部分解析)
 >> - `import { use } from 'echarts/core';`: Imports the `use` function which is required to register specific ECharts components and charts. This is the core of the tree-shaking process.
 >>   (导入 `use` 函数，该函数用于注册特定的 ECharts 组件和图表。这是摇树优化 (tree-shaking) 过程的核心。)
 >> - `import { CanvasRenderer } from 'echarts/renderers';`: Imports the rendering engine. ECharts can render using Canvas or SVG; this project explicitly chooses Canvas for better performance with large datasets.
