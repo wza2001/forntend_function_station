@@ -1,4 +1,4 @@
-> [!multi-column]
+> [!multi-column|no-wrap]
 >
 >> [!note] `src/components/ViewMap.vue`
 >> ## Full Original Source Code (完整原始源代码)
