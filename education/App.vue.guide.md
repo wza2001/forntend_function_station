@@ -1,49 +1,62 @@
 # Guide: `src/App.vue`
 
-## File Purpose & Architecture
+## File Purpose & Architecture (文件用途与架构)
 `src/App.vue` is the "Root Component" of your Vue application. It is the topmost component in the component tree, loaded directly by `main.ts`.
+(`src/App.vue` 是你 Vue 应用程序的“根组件”。它是组件树中最顶层的组件，由 `main.ts` 直接加载。)
 In this specific project, `App.vue` acts as a layout container or "dashboard wrapper". It defines the structure of the screen, layering a full-screen 3D map (`ViewMap`) underneath floating UI elements (charts via `spatialchart`).
+(在这个特定的项目中，`App.vue` 充当布局容器或“仪表板包装器”。它定义了屏幕的结构，将全屏 3D 地图 (`ViewMap`) 垫在悬浮的用户界面元素（通过 `spatialchart` 显示的图表）之下。)
 
-## Syntax Breakdown
+## Syntax Breakdown (语法解析)
 
-### `<script setup lang="ts">` (Fixed Boilerplate)
+### `<script setup lang="ts">` (Fixed Boilerplate / 固定样板代码)
 - **`script setup`**: This is the modern Composition API syntactic sugar in Vue 3. It compiles the script block into the component's `setup()` function. Variables and functions declared here are automatically available to the `<template>` without needing to explicitly `return` them.
+  (这是 Vue 3 中现代的组合式 API（Composition API）语法糖。它将脚本块编译为组件的 `setup()` 函数。在此处声明的变量和函数会自动暴露给 `<template>`，而无需显式地 `return` 它们。)
 - **`lang="ts"`**: Tells Vite to process this script as TypeScript, enabling static type checking.
+  (告诉 Vite 将此脚本作为 TypeScript 处理，从而启用静态类型检查。)
 
-### Flexible/Common Syntax (Business Logic)
-#### `ref` Initialization
+### Flexible/Common Syntax (Business Logic) (灵活/通用语法：业务逻辑)
+#### `ref` Initialization (`ref` 初始化)
 ```typescript
 import { ref } from 'vue';
 const barOption = ref({ ... });
 const pieOption = ref({ ... });
 ```
 - **`ref()`**: A core Vue function that creates a reactive reference to a value. If the inner value (`.value`) changes, Vue automatically triggers a re-render of the template where this `ref` is used.
-- **Usage**: Here, `ref` holds complex objects containing ECharts configurations. While these configs are static initially, wrapping them in `ref` is best practice in case you want to dynamically update the charts later (e.g., updating data from an API).
+  (一个核心的 Vue 函数，用于创建一个对值的响应式引用。如果内部值（`.value`）发生变化，Vue 会自动触发使用了这个 `ref` 的模板重新渲染。)
+- **Usage (用法)**: Here, `ref` holds complex objects containing ECharts configurations. While these configs are static initially, wrapping them in `ref` is best practice in case you want to dynamically update the charts later (e.g., updating data from an API).
+  (在这里，`ref` 保存了包含 ECharts 配置的复杂对象。虽然这些配置最初是静态的，但将它们包装在 `ref` 中是一种最佳实践，以防你稍后想要动态更新图表（例如，从 API 更新数据）。)
 
-## Component Nesting & Hierarchy
+## Component Nesting & Hierarchy (组件嵌套与层级)
 
-### Parent-Child Relationships
+### Parent-Child Relationships (父子关系)
 `App.vue` is the **Parent**, and it imports and uses two **Child** components:
+(`App.vue` 是**父组件**，它导入并使用了两个**子组件**：)
 1. `ViewMap`
-2. `spatialchart` (used twice)
+2. `spatialchart` (used twice / 使用了两次)
 
-### Passing Props to Children
+### Passing Props to Children (向子组件传递 Props)
 ```html
 <ViewMap geojson-url="/abudhabi_city_buildings.geojson" />
 <spatialchart :chart-option="pieOption" />
 ```
-- **Static Prop**: `geojson-url="..."` passes a plain string to `ViewMap`.
-- **Dynamic Prop (v-bind)**: `:chart-option="pieOption"` uses the `:` shorthand for `v-bind`. It passes the reactive `pieOption` object to the `spatialchart` component.
+- **Static Prop (静态 Prop)**: `geojson-url="..."` passes a plain string to `ViewMap`.
+  (`geojson-url="..."` 将一个普通字符串传递给 `ViewMap`。)
+- **Dynamic Prop (v-bind) (动态 Prop)**: `:chart-option="pieOption"` uses the `:` shorthand for `v-bind`. It passes the reactive `pieOption` object to the `spatialchart` component.
+  (`:chart-option="pieOption"` 使用了 `:` 作为 `v-bind` 的简写。它将响应式的 `pieOption` 对象传递给 `spatialchart` 组件。)
 
-## CSS Styling (Scoped)
+## CSS Styling (Scoped) (CSS 样式：作用域)
 ```vue
 <style scoped>
 ```
 - **`scoped`**: A crucial Vue feature. It ensures that the CSS defined in this block only applies to elements within `App.vue`. Vue achieves this by automatically appending unique data attributes (like `data-v-xyz`) to the HTML elements and CSS selectors.
+  (一个至关重要的 Vue 特性。它确保在此块中定义的 CSS 仅适用于 `App.vue` 内的元素。Vue 通过自动将唯一的数据属性（如 `data-v-xyz`）附加到 HTML 元素和 CSS 选择器来实现这一点。)
 
-### Layout Logic
+### Layout Logic (布局逻辑)
 - `.dashboard-root`: Uses `position: relative` with `100vw`/`100vh` to fill the entire screen and establish a positioning context for children.
+  (使用 `position: relative` 结合 `100vw`/`100vh` 来填满整个屏幕，并为子元素建立定位上下文。)
 - `.first_parts`: Uses `position: absolute; z-index: 10;` to float the charts *above* the map, which sits at `z-index: 0` (defined in `ViewMap.vue`).
+  (使用 `position: absolute; z-index: 10;` 使图表悬浮在地图*上方*，而地图位于 `z-index: 0`（在 `ViewMap.vue` 中定义）。)
 
-## Class/Interface Usage
+## Class/Interface Usage (类/接口使用)
 This file does not define custom classes or interfaces. The TypeScript engine infers the type of `barOption` and `pieOption` based on the provided object literals. In a larger application, you might import an `EChartsOption` interface from the `echarts` package to strictly type these `ref`s.
+(此文件没有定义自定义的类或接口。TypeScript 引擎会根据提供的对象字面量推断 `barOption` 和 `pieOption` 的类型。在更大的应用程序中，你可能会从 `echarts` 包中导入一个 `EChartsOption` 接口来严格约束这些 `ref` 的类型。)
