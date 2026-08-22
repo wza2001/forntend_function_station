@@ -18,29 +18,7 @@ cssClass: wide-page
 
 ---
 
-## 📦 Imports Breakdown / 导入解析
-
-> [!two-column]
-> > [!code] Source Code
-> > ```typescript
-> > import { inject } from 'vue';
-> > // Assume MapLibre map instance is provided by parent
-> > // 假设 MapLibre map 实例由父组件提供
-> > ```
->
-> > [!note] Architectural Breakdown
-> > Imports Vue composition API functions.
-> > 导入 Vue 组合式 API 函数。
-> >
-> > **Fixed Boilerplate (固定模板代码):**
-> > - Vue core imports / Vue 核心导入
-> >
-> > **Flexible/Common Syntax (灵活/通用语法):**
-> > - Icon components, state stores / 图标组件、状态存储
-
----
-
-## 🧱 Component Nesting & Hierarchy / 组件嵌套与层级
+## 📖 Complete Code & Architectural Breakdown / 完整源码与架构解析
 
 > [!two-column]
 > > [!code] Source Code
@@ -50,44 +28,45 @@ cssClass: wide-page
 > >     <button @click="resetCamera">Reset View</button>
 > >   </div>
 > > </template>
-> > ```
->
-> > [!note] Architectural Breakdown
-> > Simple UI overlay containing interaction buttons.
-> > 包含交互按钮的简单 UI 叠加层。
-
----
-
-## ⚙️ Syntax Breakdown & Function/Method Details / 语法解析与函数/方法详情
-
-> [!two-column]
-> > [!code] Source Code
-> > ```typescript
+> >
+> > <script setup lang="ts">
+> > import { inject } from 'vue';
+> > // Assume MapLibre map instance is provided by parent
+> > // 假设 MapLibre map 实例由父组件提供
+> >
 > > // Left Column: Raw Code
 > > const resetCamera = () => {
 > >   map.flyTo({ center: [54.363, 24.496], zoom: 14.5 });
 > > };
+> > </script>
 > > ```
 >
 > > [!note] Architectural Breakdown
+> > ### 📦 Imports Breakdown / 导入解析
+> > Imports Vue composition API functions.
+> > 导入 Vue 组合式 API 函数。
+> >
+> > **Fixed Boilerplate (固定模板代码):**
+> > - Vue core imports / Vue 核心导入
+> >
+> > **Flexible/Common Syntax (灵活/通用语法):**
+> > - Icon components, state stores / 图标组件、状态存储
+> >
+> > ---
+> > ### 🧱 Component Nesting & Hierarchy / 组件嵌套与层级
+> > Simple UI overlay containing interaction buttons.
+> > 包含交互按钮的简单 UI 叠加层。
+> >
+> > ---
+> > ### ⚙️ Syntax Breakdown & Function/Method Details / 语法解析与函数/方法详情
 > > **Right Column: Explanation**
 > > - Uses `map.flyTo` for smooth linear camera interpolation.
 > > - Resets coordinates back to Abu Dhabi downtown core.
 > >
 > > **Flexible/Common Syntax (灵活/通用语法):**
 > > - MapLibre GL instance method calling / 调用 MapLibre GL 实例方法
-
----
-
-## 🏗️ Class/Interface Usage / 类与接口使用情况
-
-> [!two-column]
-> > [!code] Source Code
-> > ```typescript
-> > // Currently no complex types needed for this specific method
-> > // 目前此特定方法不需要复杂类型
-> > ```
->
-> > [!note] Architectural Breakdown
-> > N/A for this snippet.
-> > 此代码片段无适用内容。
+> >
+> > ---
+> > ### 🏗️ Class/Interface Usage / 类与接口使用情况
+> > Currently no complex types needed for this specific method
+> > 目前此特定方法不需要复杂类型
