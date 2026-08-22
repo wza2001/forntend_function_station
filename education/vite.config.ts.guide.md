@@ -1,4 +1,8 @@
-# Guide: `vite.config.ts`
+<div style="display: flex; gap: 20px; font-family: sans-serif; align-items: stretch; height: 100vh;">
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; border-right: 2px solid #ddd; background-color: #f6f8fa;">
+
+# `vite.config.ts`
 
 ## Full Original Source Code (完整原始源代码)
 ```typescript
@@ -24,6 +28,12 @@ export default defineConfig({
   }
 })
 ```
+
+</div>
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; background-color: #ffffff;">
+
+# Guide Explanation (指南说明)
 
 ## Imports Breakdown (导入部分解析)
 - `import { fileURLToPath, URL } from 'node:url'`: Imports built-in Node.js utilities to safely resolve file paths across different operating systems (Windows/Mac/Linux).
@@ -99,3 +109,6 @@ optimizeDeps: {
 ## Class/Interface Usage (类/接口使用)
 There are no custom classes here. However, `defineConfig` leverages complex TypeScript interfaces under the hood (specifically `UserConfig`) to enforce that the object you pass to it contains valid Vite configuration keys.
 (这里没有自定义的类。但是，`defineConfig` 在底层利用了复杂的 TypeScript 接口（特别是 `UserConfig`）来强制约束你传递给它的对象必须包含有效的 Vite 配置键。)
+
+</div>
+</div>

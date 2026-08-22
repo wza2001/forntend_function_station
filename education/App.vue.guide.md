@@ -1,4 +1,8 @@
-# Guide: `src/App.vue`
+<div style="display: flex; gap: 20px; font-family: sans-serif; align-items: stretch; height: 100vh;">
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; border-right: 2px solid #ddd; background-color: #f6f8fa;">
+
+# `src/App.vue`
 
 ## Full Original Source Code (完整原始源代码)
 ```vue
@@ -99,6 +103,11 @@ const pieOption = ref({
 }
 </style>
 ```
+</div>
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; background-color: #ffffff;">
+
+# Guide Explanation (指南说明)
 
 ## Imports Breakdown (导入部分解析)
 - `import { ref } from 'vue';`: Imports the `ref` function from Vue. This function is used to create reactive data variables, meaning when the data changes, the UI updates automatically.
@@ -168,3 +177,6 @@ const pieOption = ref({ ... });
 ## Class/Interface Usage (类/接口使用)
 This file does not define custom classes or interfaces. The TypeScript engine infers the type of `barOption` and `pieOption` based on the provided object literals. In a larger application, you might import an `EChartsOption` interface from the `echarts` package to strictly type these `ref`s.
 (此文件没有定义自定义的类或接口。TypeScript 引擎会根据提供的对象字面量推断 `barOption` 和 `pieOption` 的类型。在更大的应用程序中，你可能会从 `echarts` 包中导入一个 `EChartsOption` 接口来严格约束这些 `ref` 的类型。)
+
+</div>
+</div>

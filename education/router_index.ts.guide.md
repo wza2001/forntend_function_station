@@ -1,4 +1,8 @@
-# Guide: `src/router/index.ts`
+<div style="display: flex; gap: 20px; font-family: sans-serif; align-items: stretch; height: 100vh;">
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; border-right: 2px solid #ddd; background-color: #f6f8fa;">
+
+# `src/router/index.ts`
 
 ## Full Original Source Code (完整原始源代码)
 ```typescript
@@ -26,6 +30,12 @@ const router = createRouter({
 
 export default router
 ```
+
+</div>
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; background-color: #ffffff;">
+
+# Guide Explanation (指南说明)
 
 ## Imports Breakdown (导入部分解析)
 - `import { createRouter, createWebHistory } from 'vue-router'`: Imports the factory functions needed to build the router instance and configure the HTML5 history mode (clean URLs).
@@ -98,3 +108,6 @@ The `routes` array holds objects defining path-to-component mappings.
 ## Class/Interface Usage (类/接口使用)
 The objects inside the `routes` array conform to the `RouteRecordRaw` interface defined by Vue Router, which strictly enforces that you must provide a `path` and a `component` (or `redirect`).
 (`routes` 数组中的对象符合 Vue Router 定义的 `RouteRecordRaw` 接口，该接口严格强制要求你必须提供一个 `path` 和一个 `component`（或 `redirect` 重定向）。)
+
+</div>
+</div>

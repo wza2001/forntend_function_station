@@ -1,4 +1,8 @@
-# Guide: `src/main.ts`
+<div style="display: flex; gap: 20px; font-family: sans-serif; align-items: stretch; height: 100vh;">
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; border-right: 2px solid #ddd; background-color: #f6f8fa;">
+
+# `src/main.ts`
 
 ## Full Original Source Code (完整原始源代码)
 ```typescript
@@ -17,6 +21,12 @@ app.use(router)
 
 app.mount('#app')
 ```
+
+</div>
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; background-color: #ffffff;">
+
+# Guide Explanation (指南说明)
 
 ## Imports Breakdown (导入部分解析)
 - `import './assets/main.css'`: Imports the global CSS file. This process injects the styles into the application, affecting the visual layout of all components globally.
@@ -101,3 +111,6 @@ app.mount('#app')
 ## Class/Interface Usage (类/接口使用)
 This specific file relies heavily on Vue's factory functions (`createApp`, `createPinia`) rather than explicit class instantiations. No custom TypeScript interfaces are defined here, as it purely leverages the types provided by the imported Vue and plugin libraries.
 (此特定文件在很大程度上依赖于 Vue 的工厂函数，如 `createApp`、`createPinia`，而不是显式的类实例化。这里没有定义自定义的 TypeScript 接口，因为它纯粹利用了导入的 Vue 和插件库提供的类型。)
+
+</div>
+</div>

@@ -1,4 +1,8 @@
-# Guide: `src/stores/counter.ts`
+<div style="display: flex; gap: 20px; font-family: sans-serif; align-items: stretch; height: 100vh;">
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; border-right: 2px solid #ddd; background-color: #f6f8fa;">
+
+# `src/stores/counter.ts`
 
 ## Full Original Source Code (完整原始源代码)
 ```typescript
@@ -15,6 +19,12 @@ export const useCounterStore = defineStore('counter', () => {
   return { count, doubleCount, increment }
 })
 ```
+
+</div>
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; background-color: #ffffff;">
+
+# Guide Explanation (指南说明)
 
 ## Imports Breakdown (导入部分解析)
 - `import { ref, computed } from 'vue'`: Imports Vue's Composition API functions. `ref` creates the actual state variables, and `computed` creates reactive getters that automatically update when the state they depend on changes.
@@ -100,3 +110,6 @@ const store = useCounterStore() // Instantiates or retrieves the global store (�
 ## Class/Interface Usage (类/接口使用)
 Pinia setup stores intentionally mirror the standard Vue Composition API syntax (`ref`, `computed`). They do not use classes. The returned object implicitly defines a strongly-typed TypeScript interface for the store, ensuring auto-completion works perfectly in components.
 (Pinia setup stores 有意地模仿了标准的 Vue 组合式 API 语法（`ref`、`computed`）。它们不使用类。返回的对象隐式地为 store 定义了一个强类型的 TypeScript 接口，从而确保自动补全在组件中完美工作。)
+
+</div>
+</div>

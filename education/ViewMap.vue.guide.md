@@ -1,4 +1,8 @@
-# Guide: `src/components/ViewMap.vue`
+<div style="display: flex; gap: 20px; font-family: sans-serif; align-items: stretch; height: 100vh;">
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; border-right: 2px solid #ddd; background-color: #f6f8fa;">
+
+# `src/components/ViewMap.vue`
 
 ## Full Original Source Code (完整原始源代码)
 ```vue
@@ -100,6 +104,12 @@ onUnmounted(() => {
 </style>
 ```
 
+</div>
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; background-color: #ffffff;">
+
+# Guide Explanation (指南说明)
+
 ## Imports Breakdown (导入部分解析)
 - `import { ref, onMounted, onUnmounted } from 'vue';`: Imports core Vue Composition API functions. `ref` creates reactive variables, `onMounted` lets you run code after the component is added to the page, and `onUnmounted` lets you run cleanup code before it is removed.
   (导入核心 Vue 组合式 API 函数。`ref` 用于创建响应式变量，`onMounted` 让你在组件添加到页面后运行代码，而 `onUnmounted` 让你在组件被移除前运行清理代码。)
@@ -193,3 +203,6 @@ let mapInstance: Map | null = null;
   (一个导入的类。`new Map(...)` 创建地图引擎的特定实例。)
 - **TypeScript Generics (`ref<HTMLElement | null>`) (TypeScript 泛型)**: Explicitly tells TypeScript that `mapContainer` will eventually hold an HTML element, but starts as `null` (before `onMounted` runs).
   (显式地告诉 TypeScript，`mapContainer` 最终将持有一个 HTML 元素，但在开始时为 `null`（在 `onMounted` 运行之前）。)
+
+</div>
+</div>

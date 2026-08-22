@@ -1,4 +1,8 @@
-# Guide: `src/components/spatialchart.vue`
+<div style="display: flex; gap: 20px; font-family: sans-serif; align-items: stretch; height: 100vh;">
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; border-right: 2px solid #ddd; background-color: #f6f8fa;">
+
+# `src/components/spatialchart.vue`
 
 ## Full Original Source Code (完整原始源代码)
 ```vue
@@ -46,6 +50,12 @@ defineProps<{
 }
 </style>
 ```
+
+</div>
+
+<div style="flex: 1; min-width: 0; overflow-y: auto; padding: 20px; background-color: #ffffff;">
+
+# Guide Explanation (指南说明)
 
 ## Imports Breakdown (导入部分解析)
 - `import { use } from 'echarts/core';`: Imports the `use` function which is required to register specific ECharts components and charts. This is the core of the tree-shaking process.
@@ -125,3 +135,6 @@ defineProps<{
 ## Class/Interface Usage (类/接口使用)
 This component leverages functional imports and composition rather than object-oriented classes. The TypeScript type `Record<string, any>` acts as a structural interface defining the shape of the expected props.
 (此组件利用了函数式导入和组合，而不是面向对象的类。TypeScript 类型 `Record<string, any>` 充当了一个结构化接口，定义了预期 props 的形状。)
+
+</div>
+</div>
