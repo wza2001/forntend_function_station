@@ -94,3 +94,5 @@ onUnmounted(() => {
   z-index: 0;
 }
 </style>
+
+// [Sync Test] MapLibre pipeline verified.
