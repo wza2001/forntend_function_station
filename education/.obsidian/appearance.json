@@ -1,8 +1,4 @@
 {
   "theme": "moonstone",
-  "cssTheme": "Github",
-  "enabledCssSnippets": [
-    "multi-column"
-  ],
-  "baseFontSize": 16
+  "cssTheme": "Circuit"
 }
