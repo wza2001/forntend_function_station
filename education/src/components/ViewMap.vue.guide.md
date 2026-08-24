@@ -115,6 +115,8 @@ tags: [vue3, component, maplibre, 3d-rendering, composition-api]
 >>   z-index: 0;
 >> }
 >> </style>
+>>
+>> // [Sync Test] MapLibre pipeline verified.
 >> ```
 >
 >> [!note] Architectural Breakdown

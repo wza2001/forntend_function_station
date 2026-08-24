@@ -27,7 +27,7 @@ use([
 ]);
 
 defineProps<{
-  chartOption: Record<string, unknown>;
+  chartOption: Record<string, any>;
 }>();
 </script>
 

@@ -14,13 +14,10 @@
     "lint": "run-s \"lint:*\"",
     "lint:oxlint": "oxlint . --fix",
     "lint:eslint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/",
-    "prepare": "husky"
+    "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "^2.3.2",
     "echarts": "^6.1.0",
-    "element-plus": "^2.14.5",
     "maplibre-gl": "^6.4.1",
     "pinia": "^4.0.2",
     "vue": "^3.5.40",
@@ -43,7 +40,6 @@
     "eslint-plugin-oxlint": "~1.73.0",
     "eslint-plugin-playwright": "^2.10.5",
     "eslint-plugin-vue": "~10.9.2",
-    "husky": "^9.1.7",
     "jiti": "^2.7.0",
     "jsdom": "^29.1.1",
     "npm-run-all2": "^9.0.2",

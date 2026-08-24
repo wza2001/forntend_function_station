@@ -40,3 +40,7 @@ __screenshots__/
 
 test-results/
 playwright-report/
+
+# Obsidian tracking
+!education/.obsidian/snippets/
+!education/.obsidian/snippets/*
