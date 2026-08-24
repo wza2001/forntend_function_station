@@ -14,24 +14,29 @@ cssClass: wide-page
 >>     main -->|injects| Router[src/router/index.ts<br/>Vue Router]
 >>     main -->|injects| Pinia[src/stores/counter.ts<br/>Pinia State Management]
 >>
+>>     %% Routing (路由)
+>>     Router -.->|routes to /| HomeView[src/views/HomeView.vue]
+>>     Router -.->|routes to /map| MapDashboardView[src/views/MapDashboardView.vue]
+>>     Router -.->|routes to /homework| HomeworkView[src/views/HomeworkView.vue]
+>>     Router -.->|lazy loads| AboutView[src/views/AboutView.vue]
+>>
 >>     %% Component Nesting (组件嵌套)
->>     App -->|imports & renders| ViewMap[src/components/ViewMap.vue<br/>3D MapLibre Canvas]
->>     App -->|imports & renders| SpatialChart1[src/components/spatialchart.vue<br/>ECharts Pie Chart]
->>     App -->|imports & renders| SpatialChart2[src/components/spatialchart.vue<br/>ECharts Bar Chart]
+>>     MapDashboardView -->|imports & renders| ViewMap[src/components/ViewMap.vue<br/>3D MapLibre Canvas]
+>>     MapDashboardView -->|imports & renders| SpatialChart1[src/components/SpatialChart.vue<br/>ECharts Pie Chart]
+>>     MapDashboardView -->|imports & renders| SpatialChart2[src/components/SpatialChart.vue<br/>ECharts Bar Chart]
+>>     MapDashboardView -->|imports & renders| MapControls[src/components/MapControls.vue<br/>UI Controls]
+>>     MapDashboardView -->|imports & renders| DataPanel[src/components/DataPanel.vue<br/>Data Table]
 >>
 >>     %% Data Flow / Props (数据流/Props传递)
->>     App -.->|props: geojsonUrl| ViewMap
->>     App -.->|props: chartOption| SpatialChart1
->>     App -.->|props: chartOption| SpatialChart2
+>>     MapDashboardView -.->|props: geojsonUrl| ViewMap
+>>     MapDashboardView -.->|props: chartOption| SpatialChart1
+>>     MapDashboardView -.->|props: chartOption| SpatialChart2
+>>     MapDashboardView -.->|emits: preset-clicked, mode-changed| MapControls
 >>
 >>     %% External Libraries (外部库)
 >>     ViewMap -.->|initializes| MapLibre((MapLibre GL JS))
 >>     SpatialChart1 -.->|initializes| ECharts((ECharts Core))
 >>     SpatialChart2 -.->|initializes| ECharts
->>
->>     %% Routing (路由)
->>     Router -.->|routes to| HomeView(src/views/HomeView.vue)
->>     Router -.->|lazy loads| AboutView(src/views/AboutView.vue)
 >>
 >>     %% Styling for Nodes
 >>     classDef core fill:#2c3e50,stroke:#34495e,stroke-width:2px,color:#fff;
@@ -40,7 +45,7 @@ cssClass: wide-page
 >>     classDef external fill:#8e44ad,stroke:#e67e22,stroke-width:4px,color:#fff,shape:circle;
 >>
 >>     class index,main core;
->>     class App,ViewMap,SpatialChart1,SpatialChart2,HomeView,AboutView component;
+>>     class App,ViewMap,SpatialChart1,SpatialChart2,HomeView,AboutView,MapDashboardView,HomeworkView,MapControls,DataPanel component;
 >>     class Router,Pinia plugin;
 >>     class MapLibre,ECharts external;
 >> ```
@@ -61,21 +66,21 @@ cssClass: wide-page
 >>   (`src/main.ts` 是总指挥。它创建了 Vue 应用程序并注入了全局插件（**Vue Router** 和 **Pinia**）。最后，它将 **`App.vue`** 挂载到 DOM 上。)
 >>
 >> ### 2. Component Hierarchy (组件层级)
->> - **`App.vue`** acts as the parent layout. It is responsible for orchestrating the visual layout of the screen.
->>   (`App.vue` 充当父布局。它负责协调屏幕的视觉布局。)
->> - It directly imports and nests **`ViewMap.vue`** (to render the full-screen 3D map) and **`spatialchart.vue`** (used multiple times to render the floating UI charts).
->>   (它直接导入并嵌套了 **`ViewMap.vue`**（用于渲染全屏 3D 地图）和 **`spatialchart.vue`**（多次使用以渲染悬浮的 UI 图表）。)
+>> - **`MapDashboardView.vue`** acts as a main layout view for the map. It orchestrates the map and overlay components.
+>>   (`MapDashboardView.vue` 充当地图的主要布局视图。它协调地图和覆盖组件。)
+>> - It directly imports and nests **`ViewMap.vue`** (to render the full-screen 3D map), **`SpatialChart.vue`** (used multiple times to render the floating UI charts), **`MapControls.vue`** (for camera presets), and **`DataPanel.vue`** (for tabular data).
+>>   (它直接导入并嵌套了 **`ViewMap.vue`**（用于渲染全屏 3D 地图）、**`SpatialChart.vue`**（多次使用以渲染悬浮的 UI 图表）、**`MapControls.vue`**（用于相机预设）和 **`DataPanel.vue`**（用于表格数据）。)
 >>
 >> ### 3. Data Flow via Props (通过 Props 的数据流)
->> - The dashed arrows (`-.->`) show how data is passed down. **`App.vue`** holds the raw configuration data (like `pieOption` and `barOption`) and passes it *down* to the child **`spatialchart.vue`** components using Vue props.
->>   (虚线箭头 (`-.->`) 显示了数据是如何向下传递的。**`App.vue`** 掌握着原始配置数据（如 `pieOption` 和 `barOption`），并使用 Vue props 将其*向下*传递给子组件 **`spatialchart.vue`**。)
->> - This follows Vue's strict "One-Way Data Flow" principle: parents pass data down to children; children never mutate parent data directly.
->>   (这遵循了 Vue 严格的“单向数据流”原则：父组件向下传递数据给子组件；子组件决不能直接修改父组件的数据。)
+>> - The dashed arrows (`-.->`) show how data is passed down. **`MapDashboardView.vue`** holds the raw configuration data (like `pieOption` and `barOption`) and passes it *down* to the child **`SpatialChart.vue`** components using Vue props.
+>>   (虚线箭头 (`-.->`) 显示了数据是如何向下传递的。**`MapDashboardView.vue`** 掌握着原始配置数据（如 `pieOption` 和 `barOption`），并使用 Vue props 将其*向下*传递给子组件 **`SpatialChart.vue`**。)
+>> - This follows Vue's strict "One-Way Data Flow" principle: parents pass data down to children; children never mutate parent data directly. Events like `@preset-clicked` are emitted from children up to the parent.
+>>   (这遵循了 Vue 严格的“单向数据流”原则：父组件向下传递数据给子组件；子组件决不能直接修改父组件的数据。像 `@preset-clicked` 这样的事件由子组件向上发射给父组件。)
 >>
 >> ### 4. Third-Party Integrations (第三方集成)
->> - The leaf components (the components at the end of the tree, like `ViewMap.vue` and `spatialchart.vue`) are responsible for wrapping complex, non-Vue JavaScript libraries.
->>   (叶子组件（位于组件树末端的组件，如 `ViewMap.vue` 和 `spatialchart.vue`）负责封装复杂的、非 Vue 的 JavaScript 库。)
+>> - The leaf components (the components at the end of the tree, like `ViewMap.vue` and `SpatialChart.vue`) are responsible for wrapping complex, non-Vue JavaScript libraries.
+>>   (叶子组件（位于组件树末端的组件，如 `ViewMap.vue` 和 `SpatialChart.vue`）负责封装复杂的、非 Vue 的 JavaScript 库。)
 >> - `ViewMap.vue` encapsulates **MapLibre GL JS**, protecting Vue's reactivity system from the map's heavy internal state.
 >>   (`ViewMap.vue` 封装了 **MapLibre GL JS**，保护 Vue 的响应式系统免受地图沉重的内部状态影响。)
->> - `spatialchart.vue` abstracts the complex tree-shaking setup required by **ECharts Core**, providing a clean, reusable `<v-chart>` interface for the rest of the app.
->>   (`spatialchart.vue` 抽象了 **ECharts Core** 所需的复杂摇树优化设置，为应用程序的其余部分提供了一个干净的、可重用的 `<v-chart>` 接口。)
+>> - `SpatialChart.vue` abstracts the complex tree-shaking setup required by **ECharts Core**, providing a clean, reusable `<v-chart>` interface for the rest of the app.
+>>   (`SpatialChart.vue` 抽象了 **ECharts Core** 所需的复杂摇树优化设置，为应用程序的其余部分提供了一个干净的、可重用的 `<v-chart>` 接口。)

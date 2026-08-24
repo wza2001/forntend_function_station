@@ -1,95 +1,84 @@
 ---
 cssClass: wide-page
+title: Vue 3 Project Architecture & Developer Guide
 ---
 
-# 📄 Template: [File Name] / [文件名]
+# 🚀 Welcome to the Project Architecture Guide
 
-> [!info] File Purpose & Architecture / 文件用途与架构
-> Write a high-level summary of the file's purpose and its role in the overall architecture.
-> 填写文件用途的高层级概述及其在整体架构中的作用。
+Welcome to the internal documentation for our Vue 3 application. This guide acts as your entry point to understanding the structure, components, and data flow of the project.
 
----
-
-## 🔗 File Relationships / 文件关联
-
-- **Parent/Importers (父级/引入者):** [[ImporterFile]]
-- **Children/Imported (子级/被引入者):** [[ImportedFile]]
-- **Architecture Graph (架构图):** [[00_Architecture_Graph]]
+Click on any internal link (e.g., `[[App.vue]]`) to navigate directly to its dedicated walkthrough and code breakdown page.
 
 ---
 
-## 📦 Imports Breakdown / 导入解析
+## 🏗️ High-Level Architecture Overview
+
+This project is built using **Vue 3 (Composition API)**, **TypeScript**, and **Vite**. It integrates **MapLibre GL** for spatial rendering and **ECharts** for data visualization, with state management handled by **Pinia** and routing by **Vue Router**.
+
+### Key Responsibilities by Directory
+
+- **`src/`**: The root of the application code.
+  - **`[[App.vue]]`**: The root component that bootstraps the layout and global providers.
+  - **`[[main.ts]]`**: The entry point where the Vue app is created, configured, and mounted.
+  - **`src/views/`**: Page-level components.
+    - **`[[HomeView.vue]]`**: The main landing page.
+    - **`[[AboutView.vue]]`**: The about page.
+  - **`src/components/`**: Reusable UI and visualization components.
+    - **`[[ViewMap.vue]]`**: Handles the MapLibre GL integration and spatial data rendering.
+    - **`[[SpatialChart.vue]]`**: Wraps ECharts for data visualization, ensuring type safety.
+  - **`src/stores/`**: Pinia stores for state management.
+    - **`[[counter.ts]]`**: Example store demonstrating reactive state.
+  - **`src/router/`**: Vue Router configuration for application navigation.
+
+---
+
+## 📖 Walkthrough Template
+
+Below is the standard format used for individual file breakdowns. It uses a **Two-Column Layout** designed to help you cross-reference the source code with its detailed explanation.
 
 > [!multi-column|no-wrap]
+> > [!code] Source Code
+> > ```vue
+> > <template>
+> >   <!-- Component Template -->
+> >   <div class="component-wrapper">
+> >     <h1>{{ title }}</h1>
+> >   </div>
+> > </template>
+> >
+> > <script setup lang="ts">
+> > // Fixed Boilerplate Imports
+> > import { ref } from 'vue';
+> >
+> > // Flexible/Common Syntax
+> > const title = ref('Component Title');
+> > </script>
+> >
+> > <style scoped>
+> > .component-wrapper {
+> >   padding: 1rem;
+> > }
+> > </style>
+> > ```
 >
->> [!code]- Full Original Source Code (Imports) / 完整原始源码 (导入部分)
->> ```typescript
->> // Add original imports here / 在此添加原始导入代码
->> import { ref } from 'vue';
->> ```
->
->> [!note]- Explanation / 详细解释
->> Explain the imports here. What do they do? Why are they needed?
->> 在此解释导入内容。它们的作用是什么？为什么需要它们？
->>
->> **Fixed Boilerplate (固定模板代码):**
->> - Framework imports / 框架层级的导入
->>
->> **Flexible/Common Syntax (灵活/通用语法):**
->> - Business logic imports / 业务逻辑层级的导入
+> > [!note] Architectural Breakdown
+> > ### 🎯 File Purpose & Architecture
+> > This component serves as... [Description of its primary role].
+> >
+> > ### 🔗 File Relationships
+> > - **Parent:** `[[App.vue]]`
+> > - **Children:** `[[SpatialChart.vue]]`
+> >
+> > ### 📦 Imports Breakdown
+> > - `ref` from `vue`: Used for creating reactive state.
+> >
+> > ### 🧩 Component Nesting & Hierarchy
+> > Describes where this component sits in the DOM tree.
+> >
+> > ### 🛠️ Syntax Breakdown & Function Details
+> > - **`title`**: A reactive string representing the component's header text.
+> > - *Fixed Boilerplate* vs *Flexible Syntax* distinctions are called out here.
 
 ---
 
-## 🧱 Component Nesting & Hierarchy / 组件嵌套与层级
-
-> [!multi-column|no-wrap]
->
->> [!code]- Full Original Source Code (Template/Component) / 完整原始源码 (模板/组件部分)
->> ```vue
->> <!-- Add original template code here / 在此添加原始模板代码 -->
->> <template>
->>   <div></div>
->> </template>
->> ```
->
->> [!note]- Explanation / 详细解释
->> Detail the component tree, slots, and props.
->> 详述组件树、插槽和属性 (props)。
-
----
-
-## ⚙️ Syntax Breakdown & Function/Method Details / 语法解析与函数/方法详情
-
-> [!multi-column|no-wrap]
->
->> [!code]- Full Original Source Code (Logic) / 完整原始源码 (逻辑部分)
->> ```typescript
->> // Add original functions/methods here / 在此添加原始函数/方法代码
->> const myFunc = () => {};
->> ```
->
->> [!note]- Explanation / 详细解释
->> Describe the methods, reactive state, and specific syntax used.
->> 描述方法、响应式状态和使用的具体语法。
->>
->> **Fixed Boilerplate (固定模板代码):**
->> - e.g. `defineProps()`, `defineEmits()` / 例如：`defineProps()`, `defineEmits()`
->>
->> **Flexible/Common Syntax (灵活/通用语法):**
->> - e.g. custom business functions / 例如：自定义业务函数
-
----
-
-## 🏗️ Class/Interface Usage / 类与接口使用情况
-
-> [!multi-column|no-wrap]
->
->> [!code]- Full Original Source Code (Types) / 完整原始源码 (类型部分)
->> ```typescript
->> // Add interfaces/classes here / 在此添加接口/类代码
->> interface MyInterface {}
->> ```
->
->> [!note]- Explanation / 详细解释
->> Breakdown the types, interfaces, and classes.
->> 解析类型、接口和类。
+*This documentation is continually updated. For the best experience, view these files inside Obsidian with the `Github` theme and `multi-column.css` snippet enabled.*

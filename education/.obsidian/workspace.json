@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "acac372812bff570",
+        "id": "8914f21f95199573",
         "type": "tabs",
         "children": [
           {
-            "id": "01609be8416002ec",
+            "id": "4707fcd45f328628",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "src/components/spatialchart.vue.guide.md",
+                "mode": "preview",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "spatialchart.vue.guide"
             }
           }
         ]
@@ -165,18 +169,6 @@
               "icon": "lucide-list",
               "title": "大纲"
             }
-          },
-          {
-            "id": "7cac292ad9907327",
-            "type": "leaf",
-            "state": {
-              "type": "footnotes",
-              "state": {
-                "file": "_template.md"
-              },
-              "icon": "lucide-ghost",
-              "title": "footnotes"
-            }
           }
         ]
       }
@@ -197,42 +189,27 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "01609be8416002ec",
+  "active": "4707fcd45f328628",
   "lastOpenFiles": [
-    "src/components/SpatialChart.vue.guide.md",
-    "src/components/spatialchart.vue.guide.md",
-    "src/components/MapControls.vue.guide.md",
-    "src/assets/logo.svg.guide.md",
-    "src/main.ts.guide.md",
-    "_template.md",
-    "JULES.md",
-    "src/App.vue.guide.md",
-    "src/views/MapDashboardView.vue.guide.md",
-    "src/views/HomeworkView.vue.guide.md",
-    "src/views/HomeView.vue.guide.md",
-    "src/views/AboutView.vue.guide.md",
-    "src/views",
-    "src/typescripts/type.ts.guide.md",
-    "src/typescripts",
-    "src/components/DataPanel.vue.guide.md",
-    "src/assets/main.css.guide.md",
-    "src/assets/base.css.guide.md",
-    "src/assets",
-    "_vue3_component_template.md",
-    "MapControls.guide.md",
-    "src/components/ViewMap.vue.guide.md",
-    "src/router/index.ts.guide.md",
-    "src/stores/counter.ts.guide.md",
-    "vite.config.ts.guide.md",
     "00_Architecture_Graph.md",
-    "education/src/main.ts.guide.md",
-    "education/src",
-    "education/00_Architecture_Graph.md",
-    "education",
+    "vite.config.ts.guide.md",
+    "JULES.md",
+    "src/stores/counter.ts.guide.md",
+    "src/router/index.ts.guide.md",
+    "src/components/ViewMap.vue.guide.md",
+    "src/components/spatialchart.vue.guide.md",
     "src/stores",
     "src/router",
+    "src/main.ts.guide.md",
     "src/components",
+    "src/App.vue.guide.md",
     "src",
+    "main.ts.guide.md",
+    "App.vue.guide.md",
+    "store_counter.ts.guide.md",
+    "ViewMap.vue.guide.md",
+    "router_index.ts.guide.md",
+    "spatialchart.vue.guide.md",
     "未命名.canvas",
     "未命名 1.canvas",
     "未命名.base"
