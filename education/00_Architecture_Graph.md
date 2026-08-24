@@ -4,7 +4,7 @@ cssClass: wide-page
 
 > [!two-column]
 > > [!code] Architecture Graph
-
+> >
 > > ```mermaid
 > > graph TD
 > >     %% Core Initialization (核心初始化)

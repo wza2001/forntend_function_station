@@ -1,5 +1,10 @@
 <template>
   <div class="dashboard-root">
+    <!-- 0. 返回主页按钮 -->
+    <div class="back-button-container">
+      <el-button type="info" :icon="HomeFilled" circle @click="router.push('/')" />
+    </div>
+
     <!-- 1. 全屏底层地图 -->
     <ViewMap ref="viewMapRef" geojson-url="/abudhabi_city_buildings.geojson" />
 
@@ -26,10 +31,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { HomeFilled } from '@element-plus/icons-vue';
 import ViewMap from '@/components/ViewMap.vue';
 import SpatialChart from '@/components/SpatialChart.vue';
 import MapControls from '@/components/MapControls.vue';
 import DataPanel from '@/components/DataPanel.vue';
+
+const router = useRouter();
 
 const viewMapRef = ref<InstanceType<typeof ViewMap> | null>(null);
 
@@ -61,9 +70,7 @@ const handleModeChange = (is3D: boolean) => {
   }
 };
 
-import type { EChartsOption } from 'echarts';
-
-const barOption = ref<EChartsOption>({
+const barOption = ref<Record<string, unknown>>({
   title: { text: '区域建筑高度分布', textStyle: { color: '#fff', fontSize: 14 } },
   tooltip: { trigger: 'axis' },
   grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
@@ -82,7 +89,7 @@ const barOption = ref<EChartsOption>({
   ]
 });
 
-const pieOption = ref<EChartsOption>({
+const pieOption = ref<Record<string, unknown>>({
   title: { text: '空域/用地类型占比', textStyle: { color: '#fff', fontSize: 14 } },
   tooltip: { trigger: 'item' },
   legend: { bottom: 0, textStyle: { color: '#ccc' } },
@@ -113,9 +120,17 @@ const pieOption = ref<EChartsOption>({
   overflow: hidden;
 }
 
-.first_parts {
+.back-button-container {
   position: absolute;
   top: 20px;
+  left: 20px;
+  z-index: 15;
+  pointer-events: auto;
+}
+
+.first_parts {
+  position: absolute;
+  top: 70px;
   left: 20px;
   width: 320px;
   z-index: 10;
