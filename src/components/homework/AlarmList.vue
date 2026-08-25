@@ -5,7 +5,7 @@
         <div class="alarm-name">{{ alarm.name }}</div>
         <div class="alarm-time">{{ alarm.time }}</div>
       </div>
-      <el-tag :type="getStatusType(alarm.status)" size="small">
+      <el-tag :type="getStatusType(alarm.status)" size="small" effect="dark" class="cyber-tag">
         {{ getStatusLabel(alarm.status) }}
       </el-tag>
     </div>
@@ -28,8 +28,8 @@ defineProps<{
 const getStatusType = (status: AlarmStatus) => {
   switch (status) {
     case 'resolved': return 'success'
-    case 'pending': return 'warning'
-    case 'processing': return 'info'
+    case 'pending': return 'danger'
+    case 'processing': return 'warning'
     default: return 'info'
   }
 }
@@ -37,7 +37,7 @@ const getStatusType = (status: AlarmStatus) => {
 const getStatusLabel = (status: AlarmStatus) => {
   switch (status) {
     case 'resolved': return '已消警'
-    case 'pending': return '待派遣'
+    case 'pending': return '未处理'
     case 'processing': return '处理中'
     default: return '未知'
   }
@@ -55,7 +55,7 @@ const getStatusLabel = (status: AlarmStatus) => {
   width: 4px;
 }
 .alarm-list::-webkit-scrollbar-thumb {
-  background: rgba(64, 158, 255, 0.5);
+  background: rgba(0, 246, 255, 0.5);
   border-radius: 2px;
 }
 
@@ -64,18 +64,31 @@ const getStatusLabel = (status: AlarmStatus) => {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 40, 60, 0.5);
   margin-bottom: 8px;
-  border-left: 3px solid #409eff;
+  border-left: 3px solid #00f6ff;
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.alarm-item:hover {
+  background: rgba(0, 80, 120, 0.6);
+  box-shadow: 0 0 10px rgba(0, 246, 255, 0.3);
 }
 
 .alarm-name {
   font-size: 13px;
   margin-bottom: 4px;
+  color: #fff;
 }
 
 .alarm-time {
   font-size: 11px;
-  color: #888;
+  color: #88c0d0;
+}
+
+.cyber-tag {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0;
 }
 </style>

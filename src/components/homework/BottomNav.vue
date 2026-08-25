@@ -1,18 +1,20 @@
 <template>
   <div class="bottom-nav">
     <div
-      v-for="(item, index) in items"
+      v-for="(item, index) in navItems"
       :key="index"
       class="nav-item"
       :class="{ active: activeIndex === index }"
       @click="$emit('update:activeIndex', index)"
     >
-      {{ item }}
+      <img :src="item.icon" alt="" class="nav-icon" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 defineProps<{
   items: string[]
   activeIndex: number
@@ -21,6 +23,12 @@ defineProps<{
 defineEmits<{
   (e: 'update:activeIndex', index: number): void
 }>()
+
+const navItems = computed(() => [
+  { label: '一中', icon: '/img/yz.png' },
+  { label: '独立', icon: '/img/dl.png' },
+  { label: '概览', icon: '/img/gl.png' }
+])
 </script>
 
 <style scoped>
@@ -30,31 +38,26 @@ defineEmits<{
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 15px;
-  background: rgba(0, 20, 50, 0.6);
-  padding: 10px 20px;
-  border-radius: 4px;
-  border: 1px solid rgba(64, 158, 255, 0.3);
+  gap: 10px;
   z-index: 10;
+  padding: 5px;
 }
 
 .nav-item {
-  padding: 8px 16px;
-  font-size: 14px;
-  color: #ccc;
   cursor: pointer;
-  border: 1px solid transparent;
   transition: all 0.3s;
+  opacity: 0.7;
 }
 
-.nav-item:hover {
-  color: #fff;
-  border-color: rgba(64, 158, 255, 0.5);
+.nav-item:hover, .nav-item.active {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 8px rgba(0, 246, 255, 0.8));
 }
 
-.nav-item.active {
-  color: #fff;
-  background: rgba(64, 158, 255, 0.2);
-  border-color: #409eff;
+.nav-icon {
+  width: auto;
+  height: 40px;
+  display: block;
 }
 </style>
