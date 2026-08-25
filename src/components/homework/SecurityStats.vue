@@ -92,9 +92,15 @@ defineProps<{
   color: #fff;
 }
 
-.bg-cyan { background: #00bcd4; }
-.bg-purple { background: #9c27b0; }
-.bg-blue { background: #2196f3; }
+.bg-cyan {
+  background: #00bcd4;
+}
+.bg-purple {
+  background: #9c27b0;
+}
+.bg-blue {
+  background: #2196f3;
+}
 
 .sub-value {
   font-size: 14px;

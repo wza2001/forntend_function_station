@@ -1,8 +1,6 @@
 <template>
   <div class="panel-section" :class="{ 'flex-1': flex }">
-    <div class="section-title">
-      <span class="title-icon">||</span> {{ title }}
-    </div>
+    <div class="section-title"><span class="title-icon">||</span> {{ title }}</div>
     <slot></slot>
   </div>
 </template>

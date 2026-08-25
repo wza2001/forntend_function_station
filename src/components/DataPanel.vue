@@ -6,7 +6,13 @@
     </div>
 
     <div class="panel-content" v-show="!isCollapsed">
-      <el-table :data="tableData" style="width: 100%" height="250" :row-class-name="tableRowClassName" size="small">
+      <el-table
+        :data="tableData"
+        style="width: 100%"
+        height="250"
+        :row-class-name="tableRowClassName"
+        size="small"
+      >
         <el-table-column prop="id" label="ID" width="80" />
         <el-table-column prop="name" label="Building Name" />
         <el-table-column prop="height" label="Height (m)" width="100" />
@@ -35,7 +41,13 @@ const toggleCollapse = () => {
 
 // Mock data
 const tableData = [
-  { id: 'B001', name: 'Burj Mohammed Bin Rashid', height: 381, type: 'Mixed Use', status: 'Active' },
+  {
+    id: 'B001',
+    name: 'Burj Mohammed Bin Rashid',
+    height: 381,
+    type: 'Mixed Use',
+    status: 'Active',
+  },
   { id: 'B002', name: 'ADNOC Headquarters', height: 342, type: 'Office', status: 'Active' },
   { id: 'B003', name: 'The Landmark', height: 324, type: 'Mixed Use', status: 'Active' },
   { id: 'B004', name: 'Etihad Towers T2', height: 305, type: 'Residential', status: 'Active' },

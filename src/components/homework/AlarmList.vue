@@ -27,19 +27,27 @@ defineProps<{
 
 const getStatusType = (status: AlarmStatus) => {
   switch (status) {
-    case 'resolved': return 'success'
-    case 'pending': return 'warning'
-    case 'processing': return 'info'
-    default: return 'info'
+    case 'resolved':
+      return 'success'
+    case 'pending':
+      return 'warning'
+    case 'processing':
+      return 'info'
+    default:
+      return 'info'
   }
 }
 
 const getStatusLabel = (status: AlarmStatus) => {
   switch (status) {
-    case 'resolved': return '已消警'
-    case 'pending': return '待派遣'
-    case 'processing': return '处理中'
-    default: return '未知'
+    case 'resolved':
+      return '已消警'
+    case 'pending':
+      return '待派遣'
+    case 'processing':
+      return '处理中'
+    default:
+      return '未知'
   }
 }
 </script>
