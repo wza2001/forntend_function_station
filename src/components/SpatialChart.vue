@@ -5,16 +5,16 @@
 </template>
 
 <script setup lang="ts">
-import { use } from 'echarts/core';
-import { CanvasRenderer } from 'echarts/renderers';
-import { PieChart, BarChart } from 'echarts/charts';
+import { use } from 'echarts/core'
+import { CanvasRenderer } from 'echarts/renderers'
+import { PieChart, BarChart } from 'echarts/charts'
 import {
   TitleComponent,
   TooltipComponent,
   LegendComponent,
-  GridComponent
-} from 'echarts/components';
-import VChart from 'vue-echarts';
+  GridComponent,
+} from 'echarts/components'
+import VChart from 'vue-echarts'
 
 use([
   CanvasRenderer,
@@ -23,12 +23,12 @@ use([
   TitleComponent,
   TooltipComponent,
   LegendComponent,
-  GridComponent
-]);
+  GridComponent,
+])
 
 defineProps<{
-  chartOption: Record<string, unknown>;
-}>();
+  chartOption: Record<string, unknown>
+}>()
 </script>
 
 <style scoped>

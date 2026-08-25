@@ -20,11 +20,15 @@ const initChart = () => {
   }
 }
 
-watch(() => props.option, (newOption) => {
-  if (chartInstance.value) {
-    chartInstance.value.setOption(newOption)
-  }
-}, { deep: true })
+watch(
+  () => props.option,
+  (newOption) => {
+    if (chartInstance.value) {
+      chartInstance.value.setOption(newOption)
+    }
+  },
+  { deep: true },
+)
 
 const handleResize = () => {
   chartInstance.value?.resize()

@@ -4,8 +4,12 @@
       <div class="control-group">
         <span class="group-title">Camera Presets</span>
         <el-button-group>
-          <el-button type="primary" size="small" @click="emit('preset-clicked', 'downtown')">Downtown</el-button>
-          <el-button type="primary" size="small" @click="emit('preset-clicked', 'overview')">Overview</el-button>
+          <el-button type="primary" size="small" @click="emit('preset-clicked', 'downtown')"
+            >Downtown</el-button
+          >
+          <el-button type="primary" size="small" @click="emit('preset-clicked', 'overview')"
+            >Overview</el-button
+          >
         </el-button-group>
       </div>
 

@@ -30,20 +30,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { HomeFilled } from '@element-plus/icons-vue';
-import ViewMap from '@/components/ViewMap.vue';
-import SpatialChart from '@/components/SpatialChart.vue';
-import MapControls from '@/components/MapControls.vue';
-import DataPanel from '@/components/DataPanel.vue';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { HomeFilled } from '@element-plus/icons-vue'
+import ViewMap from '@/components/ViewMap.vue'
+import SpatialChart from '@/components/SpatialChart.vue'
+import MapControls from '@/components/MapControls.vue'
+import DataPanel from '@/components/DataPanel.vue'
 
-const router = useRouter();
+const router = useRouter()
 
-const viewMapRef = ref<InstanceType<typeof ViewMap> | null>(null);
+const viewMapRef = ref<InstanceType<typeof ViewMap> | null>(null)
 
 const handlePresetClick = (preset: 'downtown' | 'overview') => {
-  if (!viewMapRef.value) return;
+  if (!viewMapRef.value) return
 
   if (preset === 'downtown') {
     viewMapRef.value.flyTo({
@@ -51,24 +51,24 @@ const handlePresetClick = (preset: 'downtown' | 'overview') => {
       zoom: 15,
       pitch: 60,
       bearing: -17.6,
-      duration: 2000
-    });
+      duration: 2000,
+    })
   } else if (preset === 'overview') {
     viewMapRef.value.flyTo({
       center: [54.36, 24.48],
       zoom: 12,
       pitch: 0,
       bearing: 0,
-      duration: 2000
-    });
+      duration: 2000,
+    })
   }
-};
+}
 
 const handleModeChange = (is3D: boolean) => {
   if (viewMapRef.value) {
-    viewMapRef.value.setViewMode(is3D);
+    viewMapRef.value.setViewMode(is3D)
   }
-};
+}
 
 const barOption = ref<Record<string, unknown>>({
   title: { text: '区域建筑高度分布', textStyle: { color: '#fff', fontSize: 14 } },
@@ -77,17 +77,17 @@ const barOption = ref<Record<string, unknown>>({
   xAxis: {
     type: 'category',
     data: ['0-10m', '10-30m', '30-50m', '50-100m', '>100m'],
-    axisLabel: { color: '#ccc' }
+    axisLabel: { color: '#ccc' },
   },
   yAxis: { type: 'value', axisLabel: { color: '#ccc' } },
   series: [
     {
       data: [120, 200, 150, 80, 40],
       type: 'bar',
-      itemStyle: { color: '#3b82f6', borderRadius: [4, 4, 0, 0] }
-    }
-  ]
-});
+      itemStyle: { color: '#3b82f6', borderRadius: [4, 4, 0, 0] },
+    },
+  ],
+})
 
 const pieOption = ref<Record<string, unknown>>({
   title: { text: '空域/用地类型占比', textStyle: { color: '#fff', fontSize: 14 } },
@@ -105,11 +105,11 @@ const pieOption = ref<Record<string, unknown>>({
         { value: 1048, name: '住宅区' },
         { value: 735, name: '商业区' },
         { value: 580, name: '绿地与公园' },
-        { value: 300, name: '禁飞管控区' }
-      ]
-    }
-  ]
-});
+        { value: 300, name: '禁飞管控区' },
+      ],
+    },
+  ],
+})
 </script>
 
 <style scoped>

@@ -20,12 +20,20 @@ cssClass: wide-page
 >>     Router -.->|routes to /homework| HomeworkView[src/views/HomeworkView.vue]
 >>     Router -.->|lazy loads| AboutView[src/views/AboutView.vue]
 >>
->>     %% Component Nesting (组件嵌套)
+>>     %% Map Dashboard Nesting
 >>     MapDashboardView -->|imports & renders| ViewMap[src/components/ViewMap.vue<br/>3D MapLibre Canvas]
 >>     MapDashboardView -->|imports & renders| SpatialChart1[src/components/SpatialChart.vue<br/>ECharts Pie Chart]
 >>     MapDashboardView -->|imports & renders| SpatialChart2[src/components/SpatialChart.vue<br/>ECharts Bar Chart]
 >>     MapDashboardView -->|imports & renders| MapControls[src/components/MapControls.vue<br/>UI Controls]
 >>     MapDashboardView -->|imports & renders| DataPanel[src/components/DataPanel.vue<br/>Data Table]
+>>
+>>     %% Homework Dashboard Nesting
+>>     HomeworkView -->|imports & renders| PanelSection[src/components/homework/PanelSection.vue<br/>Layout Wrapper]
+>>     HomeworkView -->|imports & renders| SecurityStats[src/components/homework/SecurityStats.vue<br/>Stats UI]
+>>     HomeworkView -->|imports & renders| AlarmList[src/components/homework/AlarmList.vue<br/>List UI]
+>>     HomeworkView -->|imports & renders| BlacklistCard[src/components/homework/BlacklistCard.vue<br/>Card UI]
+>>     HomeworkView -->|imports & renders| BaseChart[src/components/homework/BaseChart.vue<br/>ECharts Wrapper]
+>>     HomeworkView -->|imports & renders| BottomNav[src/components/homework/BottomNav.vue<br/>Nav UI]
 >>
 >>     %% Data Flow / Props (数据流/Props传递)
 >>     MapDashboardView -.->|props: geojsonUrl| ViewMap
@@ -33,10 +41,18 @@ cssClass: wide-page
 >>     MapDashboardView -.->|props: chartOption| SpatialChart2
 >>     MapDashboardView -.->|emits: preset-clicked, mode-changed| MapControls
 >>
+>>     HomeworkView -.->|props: title| PanelSection
+>>     HomeworkView -.->|props: totalPeople...| SecurityStats
+>>     HomeworkView -.->|props: alarms| AlarmList
+>>     HomeworkView -.->|props: count| BlacklistCard
+>>     HomeworkView -.->|props: option| BaseChart
+>>     HomeworkView -.->|v-model:activeIndex| BottomNav
+>>
 >>     %% External Libraries (外部库)
 >>     ViewMap -.->|initializes| MapLibre((MapLibre GL JS))
 >>     SpatialChart1 -.->|initializes| ECharts((ECharts Core))
 >>     SpatialChart2 -.->|initializes| ECharts
+>>     BaseChart -.->|initializes| ECharts
 >>
 >>     %% Styling for Nodes
 >>     classDef core fill:#2c3e50,stroke:#34495e,stroke-width:2px,color:#fff;
@@ -45,7 +61,7 @@ cssClass: wide-page
 >>     classDef external fill:#8e44ad,stroke:#e67e22,stroke-width:4px,color:#fff,shape:circle;
 >>
 >>     class index,main core;
->>     class App,ViewMap,SpatialChart1,SpatialChart2,HomeView,AboutView,MapDashboardView,HomeworkView,MapControls,DataPanel component;
+>>     class App,ViewMap,SpatialChart1,SpatialChart2,HomeView,AboutView,MapDashboardView,HomeworkView,MapControls,DataPanel,PanelSection,SecurityStats,AlarmList,BlacklistCard,BaseChart,BottomNav component;
 >>     class Router,Pinia plugin;
 >>     class MapLibre,ECharts external;
 >> ```
@@ -53,7 +69,7 @@ cssClass: wide-page
 >> [!info] Graph Explanation (图表说明)
 >> ## File Relationships (文件关系)
 >> [[education/src/main.ts.guide]], [[education/src/App.vue.guide]]
-
+>>
 >> ## Project Relationships Breakdown (项目关系解析)
 >>
 >> This Mermaid graph illustrates the overall architecture of your Vue 3 application.
@@ -68,19 +84,13 @@ cssClass: wide-page
 >> ### 2. Component Hierarchy (组件层级)
 >> - **`MapDashboardView.vue`** acts as a main layout view for the map. It orchestrates the map and overlay components.
 >>   (`MapDashboardView.vue` 充当地图的主要布局视图。它协调地图和覆盖组件。)
->> - It directly imports and nests **`ViewMap.vue`** (to render the full-screen 3D map), **`SpatialChart.vue`** (used multiple times to render the floating UI charts), **`MapControls.vue`** (for camera presets), and **`DataPanel.vue`** (for tabular data).
->>   (它直接导入并嵌套了 **`ViewMap.vue`**（用于渲染全屏 3D 地图）、**`SpatialChart.vue`**（多次使用以渲染悬浮的 UI 图表）、**`MapControls.vue`**（用于相机预设）和 **`DataPanel.vue`**（用于表格数据）。)
+>> - **`HomeworkView.vue`** acts as a main layout view for the homework dashboard, orchestrating various layout sections and data-driven child components in `src/components/homework/`.
 >>
 >> ### 3. Data Flow via Props (通过 Props 的数据流)
->> - The dashed arrows (`-.->`) show how data is passed down. **`MapDashboardView.vue`** holds the raw configuration data (like `pieOption` and `barOption`) and passes it *down* to the child **`SpatialChart.vue`** components using Vue props.
->>   (虚线箭头 (`-.->`) 显示了数据是如何向下传递的。**`MapDashboardView.vue`** 掌握着原始配置数据（如 `pieOption` 和 `barOption`），并使用 Vue props 将其*向下*传递给子组件 **`SpatialChart.vue`**。)
->> - This follows Vue's strict "One-Way Data Flow" principle: parents pass data down to children; children never mutate parent data directly. Events like `@preset-clicked` are emitted from children up to the parent.
->>   (这遵循了 Vue 严格的“单向数据流”原则：父组件向下传递数据给子组件；子组件决不能直接修改父组件的数据。像 `@preset-clicked` 这样的事件由子组件向上发射给父组件。)
+>> - The dashed arrows (`-.->`) show how data is passed down following Vue's strict "One-Way Data Flow" principle.
+>>   (虚线箭头 (`-.->`) 显示了数据是如何遵循 Vue 严格的“单向数据流”原则向下传递的。)
+>> - The dashboard views act as "Smart Containers", managing state and passing it down to "Dumb Presentational Components".
 >>
 >> ### 4. Third-Party Integrations (第三方集成)
->> - The leaf components (the components at the end of the tree, like `ViewMap.vue` and `SpatialChart.vue`) are responsible for wrapping complex, non-Vue JavaScript libraries.
->>   (叶子组件（位于组件树末端的组件，如 `ViewMap.vue` 和 `SpatialChart.vue`）负责封装复杂的、非 Vue 的 JavaScript 库。)
->> - `ViewMap.vue` encapsulates **MapLibre GL JS**, protecting Vue's reactivity system from the map's heavy internal state.
->>   (`ViewMap.vue` 封装了 **MapLibre GL JS**，保护 Vue 的响应式系统免受地图沉重的内部状态影响。)
->> - `SpatialChart.vue` abstracts the complex tree-shaking setup required by **ECharts Core**, providing a clean, reusable `<v-chart>` interface for the rest of the app.
->>   (`SpatialChart.vue` 抽象了 **ECharts Core** 所需的复杂摇树优化设置，为应用程序的其余部分提供了一个干净的、可重用的 `<v-chart>` 接口。)
+>> - The leaf components (the components at the end of the tree, like `ViewMap.vue`, `SpatialChart.vue`, and `BaseChart.vue`) are responsible for wrapping complex, non-Vue JavaScript libraries.
+>>   (叶子组件（位于组件树末端的组件，如 `ViewMap.vue`、`SpatialChart.vue` 和 `BaseChart.vue`）负责封装复杂的、非 Vue 的 JavaScript 库。)

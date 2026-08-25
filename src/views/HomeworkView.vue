@@ -54,11 +54,7 @@
     </div>
 
     <!-- Bottom Navigation -->
-    <BottomNav
-      :items="navItems"
-      v-model:activeIndex="activeNavIndex"
-    />
-
+    <BottomNav :items="navItems" v-model:activeIndex="activeNavIndex" />
   </div>
 </template>
 
@@ -80,7 +76,7 @@ const overviewStats = reactive({
   blacklistCount: 25,
   ownerCount: 2318,
   visitorCount: 880,
-  outsiderCount: 174
+  outsiderCount: 174,
 })
 
 const alarmData = ref([
@@ -91,7 +87,7 @@ const alarmData = ref([
   { name: '监控5: 大西门云台', time: '07:12:18', status: 'pending' as AlarmStatus },
   { name: '监控6: 大西门云台', time: '07:12:18', status: 'processing' as AlarmStatus },
   { name: '监控7: 大西门云台', time: '07:12:18', status: 'resolved' as AlarmStatus },
-  { name: '监控8: 大西门云台', time: '07:12:18', status: 'pending' as AlarmStatus }
+  { name: '监控8: 大西门云台', time: '07:12:18', status: 'pending' as AlarmStatus },
 ])
 
 const navItems = ['社区管理', '安保监控', 'CIM平台', '能源检测', '节能分析']
@@ -103,12 +99,12 @@ const barChartOption = ref<Record<string, unknown>>({
   xAxis: {
     type: 'category',
     data: ['6-27', '6-28', '6-29', '6-27', '6-27', '6-27', '6-27'],
-    axisLabel: { color: '#888', fontSize: 10 }
+    axisLabel: { color: '#888', fontSize: 10 },
   },
   yAxis: {
     type: 'value',
     splitLine: { lineStyle: { color: 'rgba(255,255,255,0.1)', type: 'dashed' } },
-    axisLabel: { color: '#888', fontSize: 10 }
+    axisLabel: { color: '#888', fontSize: 10 },
   },
   series: [
     {
@@ -117,12 +113,12 @@ const barChartOption = ref<Record<string, unknown>>({
       itemStyle: {
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
           { offset: 0, color: '#00f2fe' },
-          { offset: 1, color: '#4facfe' }
-        ])
+          { offset: 1, color: '#4facfe' },
+        ]),
       },
-      barWidth: '60%'
-    }
-  ]
+      barWidth: '60%',
+    },
+  ],
 })
 
 const pieChartOption = ref<Record<string, unknown>>({
@@ -133,7 +129,7 @@ const pieChartOption = ref<Record<string, unknown>>({
     top: 'center',
     textStyle: { color: '#ccc', fontSize: 10 },
     itemWidth: 10,
-    itemHeight: 10
+    itemHeight: 10,
   },
   series: [
     {
@@ -148,10 +144,10 @@ const pieChartOption = ref<Record<string, unknown>>({
         { value: 1048, name: '长期空置', itemStyle: { color: '#5470c6' } },
         { value: 735, name: '长期未外出', itemStyle: { color: '#91cc75' } },
         { value: 580, name: '小孩独自出门超时', itemStyle: { color: '#fac858' } },
-        { value: 484, name: '老人独自出门超时', itemStyle: { color: '#ee6666' } }
-      ]
-    }
-  ]
+        { value: 484, name: '老人独自出门超时', itemStyle: { color: '#ee6666' } },
+      ],
+    },
+  ],
 })
 
 const lineChartOption = ref<Record<string, unknown>>({
@@ -160,12 +156,12 @@ const lineChartOption = ref<Record<string, unknown>>({
     type: 'category',
     boundaryGap: false,
     data: ['6-27', '6-27', '6-27', '6-27', '6-27', '6-27', '6-27', '6-27'],
-    axisLabel: { color: '#888', fontSize: 10 }
+    axisLabel: { color: '#888', fontSize: 10 },
   },
   yAxis: {
     type: 'value',
     splitLine: { lineStyle: { color: 'rgba(255,255,255,0.1)', type: 'dashed' } },
-    axisLabel: { color: '#888', fontSize: 10 }
+    axisLabel: { color: '#888', fontSize: 10 },
   },
   series: [
     {
@@ -175,13 +171,13 @@ const lineChartOption = ref<Record<string, unknown>>({
       areaStyle: {
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
           { offset: 0, color: 'rgba(238, 102, 102, 0.8)' },
-          { offset: 1, color: 'rgba(238, 102, 102, 0.1)' }
-        ])
+          { offset: 1, color: 'rgba(238, 102, 102, 0.1)' },
+        ]),
       },
       lineStyle: { color: '#ee6666' },
-      itemStyle: { color: '#ee6666' }
-    }
-  ]
+      itemStyle: { color: '#ee6666' },
+    },
+  ],
 })
 </script>
 
