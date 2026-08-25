@@ -12,6 +12,7 @@ const props = defineProps<{
 
 const chartRef = ref<HTMLElement | null>(null)
 const chartInstance = shallowRef<echarts.ECharts | null>(null)
+const resizeObserver = ref<ResizeObserver | null>(null)
 
 const initChart = () => {
   if (chartRef.value) {
@@ -26,17 +27,23 @@ watch(() => props.option, (newOption) => {
   }
 }, { deep: true })
 
-const handleResize = () => {
-  chartInstance.value?.resize()
-}
-
 onMounted(() => {
   initChart()
-  window.addEventListener('resize', handleResize)
+
+  if (chartRef.value) {
+    resizeObserver.value = new ResizeObserver(() => {
+      if (chartInstance.value) {
+        chartInstance.value.resize()
+      }
+    })
+    resizeObserver.value.observe(chartRef.value)
+  }
 })
 
 onUnmounted(() => {
-  window.removeEventListener('resize', handleResize)
+  if (resizeObserver.value) {
+    resizeObserver.value.disconnect()
+  }
   chartInstance.value?.dispose()
 })
 </script>
