@@ -1,26 +1,22 @@
 <template>
   <div class="security-overview">
-    <div class="overview-top">
-      <el-icon class="overview-icon" color="#409eff" :size="40"><DataBoard /></el-icon>
-      <div class="stat-item">
-        <div class="stat-label">当前社区总人数</div>
-        <div class="stat-value highlight">{{ totalPeople }}</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-label">黑名单</div>
-        <div class="stat-value">{{ blacklistCount }}</div>
-      </div>
-    </div>
     <div class="overview-bottom">
       <div class="stat-sub">
+        <img src="/img/title.png" class="overview-icon" alt="">
         <div class="sub-label bg-cyan">业主人数</div>
         <div class="sub-value">{{ ownerCount }}</div>
       </div>
       <div class="stat-sub">
+        <div class="stat-label">当前社区总人数</div>
+        <div class="stat-value highlight">{{ totalPeople }}</div>
         <div class="sub-label bg-purple">访客人数</div>
         <div class="sub-value">{{ visitorCount }}</div>
       </div>
       <div class="stat-sub">
+        <div class="stat-item">
+        <div class="stat-label">黑名单</div>
+        <div class="stat-value">{{ blacklistCount }}</div>
+        </div>
         <div class="sub-label bg-blue">外来人数</div>
         <div class="sub-value">{{ outsiderCount }}</div>
       </div>
@@ -54,6 +50,13 @@ defineProps<{
   margin-bottom: 20px;
 }
 
+.overview-icon{
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  margin-right: 8px;
+}
+
 .stat-item {
   display: flex;
   flex-direction: column;
@@ -61,7 +64,6 @@ defineProps<{
 
 .stat-label {
   font-size: 12px;
-  color: #ccc;
   margin-bottom: 5px;
 }
 

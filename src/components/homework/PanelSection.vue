@@ -1,7 +1,8 @@
 <template>
   <div class="panel-section" :class="{ 'flex-1': flex }">
     <div class="section-title">
-      <span class="title-icon">||</span> {{ title }}
+      <img src="/img/titleImg.png" class="title-icon" alt="" />
+      <span class="title-icon"></span> {{ title }}
     </div>
     <slot></slot>
   </div>
@@ -35,8 +36,8 @@ defineProps<{
 }
 
 .title-icon {
-  color: #409eff;
+  object-fit: contain;
+  height: 16px;
   margin-right: 8px;
-  font-weight: bold;
 }
 </style>
