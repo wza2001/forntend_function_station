@@ -9,7 +9,8 @@
     <!-- Left Panel -->
     <div class="panel left-panel">
       <!-- Section 1: Security Overview -->
-      <PanelSection title="安防概况">
+      <div class="panel-top">
+        <PanelSection title="安防概况">
         <SecurityStats
           :total-people="overviewStats.totalPeople"
           :blacklist-count="overviewStats.blacklistCount"
@@ -18,21 +19,28 @@
           :outsider-count="overviewStats.outsiderCount"
         />
       </PanelSection>
+      </div>
 
-      <!-- Section 2: Alarm Messages -->
-      <PanelSection title="报警讯息列表" flex>
-        <AlarmList :alarms="alarmData" />
+      <div class="panel-bottom">
+        <PanelSection title="报警讯息列表">
+        <AlarmList :alarms="alarmData"  class="list-section"/>
       </PanelSection>
+      </div>
+      <!-- Section 2: Alarm Messages -->
+
     </div>
 
     <!-- Right Panel -->
     <div class="panel right-panel">
-      <!-- Section 1: Blacklist -->
+      <div class="panel-top">
+        <!-- Section 1: Blacklist -->
       <PanelSection title="黑名单数据">
-        <BlacklistCard :count="754" />
+        <BlacklistCard :count="754"/>
       </PanelSection>
+      </div>
 
-      <!-- Section 2: Overdue Visitors (Bar Chart) -->
+      <div class="panel-bottom">
+        <!-- Section 2: Overdue Visitors (Bar Chart) -->
       <PanelSection title="超时访客数据" class="chart-section">
         <div class="chart-subtitle">近一周访客超时楼栋分布</div>
         <BaseChart :option="barChartOption" />
@@ -51,6 +59,8 @@
         </div>
         <BaseChart :option="lineChartOption" />
       </PanelSection>
+      </div>
+
     </div>
 
     <!-- Bottom Navigation -->
@@ -73,6 +83,7 @@ import AlarmList, { type AlarmStatus } from '@/components/homework/AlarmList.vue
 import BlacklistCard from '@/components/homework/BlacklistCard.vue'
 import BottomNav from '@/components/homework/BottomNav.vue'
 import BaseChart from '@/components/homework/BaseChart.vue'
+
 
 // --- Data ---
 const overviewStats = reactive({
@@ -99,7 +110,7 @@ const activeNavIndex = ref(2) // Default to 'CIM平台'
 
 // --- Chart Options ---
 const barChartOption = ref<Record<string, unknown>>({
-  grid: { top: 10, right: 10, bottom: 20, left: 30 },
+  grid: { top: 30, right: 30, bottom: 20, left: 30 },
   xAxis: {
     type: 'category',
     data: ['6-27', '6-28', '6-29', '6-27', '6-27', '6-27', '6-27'],
@@ -112,43 +123,68 @@ const barChartOption = ref<Record<string, unknown>>({
   },
   series: [
     {
-      data: [150, 80, 200, 320, 400, 310, 350],
+      data: [10, 80, 200, 320, 400, 310, 230],
       type: 'bar',
+      barWidth: '60%',
       itemStyle: {
-        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: '#00f2fe' },
-          { offset: 1, color: '#4facfe' }
-        ])
-      },
-      barWidth: '60%'
+        color: (params: { dataIndex: number }) => {
+          // 隔一个换一种纯色
+          return params.dataIndex % 2 === 0 ? '#4C81DD' : '#38D9D0'
+        }
+      }
     }
   ]
 })
 
 const pieChartOption = ref<Record<string, unknown>>({
+  title: {
+    text: '{titleText|业主关怀}\n{userIcon|}',
+    left: '29%', // 与 series.center 的 X 坐标 30% 保持一致
+    top: '45%',  // 与 series.center 的 Y 坐标 50% 保持一致
+    textAlign: 'center',
+    textVerticalAlign: 'middle',
+    textStyle: {
+      rich: {
+        titleText: {
+          color: '#5489AB',
+          fontSize: 12,
+          lineHeight: 18,
+          align: 'center'
+        },
+        userIcon: {
+          backgroundColor: {
+            image: './img/yz.png' // 你的本地图片路径
+          },
+          width: 28,
+          height: 28,
+          align: 'center'
+        }
+      }
+    }
+  },
   tooltip: { trigger: 'item' },
   legend: {
     orient: 'vertical',
-    right: 10,
+    right: 20,
     top: 'center',
-    textStyle: { color: '#ccc', fontSize: 10 },
-    itemWidth: 10,
+    textStyle: { color: '#ffffff', fontSize: 10 },
+    itemWidth: 20,
     itemHeight: 10
   },
   series: [
     {
       name: '业主关怀',
       type: 'pie',
-      radius: ['50%', '80%'],
+      radius: ['45%', '70%'],
       center: ['30%', '50%'],
       avoidLabelOverlap: false,
       label: { show: false },
       labelLine: { show: false },
       data: [
-        { value: 1048, name: '长期空置', itemStyle: { color: '#5470c6' } },
-        { value: 735, name: '长期未外出', itemStyle: { color: '#91cc75' } },
-        { value: 580, name: '小孩独自出门超时', itemStyle: { color: '#fac858' } },
-        { value: 484, name: '老人独自出门超时', itemStyle: { color: '#ee6666' } }
+        { value: 248, name: '长期空置', itemStyle: { color: '#5E63FB' } },
+        { value: 435, name: '长期未外出', itemStyle: { color: '#41E8D7' } },
+        { value: 780, name: '小孩独自出门超时', itemStyle: { color: '#AA5CE7' } },
+        { value: 1284, name: '老人独自出门超时', itemStyle: { color: '#A0EA66' } }
       ]
     }
   ]
@@ -171,15 +207,15 @@ const lineChartOption = ref<Record<string, unknown>>({
     {
       data: [10, 25, 45, 30, 80, 50, 40, 15],
       type: 'line',
-      smooth: true,
+      smooth: false,
       areaStyle: {
         color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: 'rgba(238, 102, 102, 0.8)' },
-          { offset: 1, color: 'rgba(238, 102, 102, 0.1)' }
+          { offset: 0, color: "#4C1B64" },
+          { offset: 1, color: '#15475F' }
         ])
       },
-      lineStyle: { color: '#ee6666' },
-      itemStyle: { color: '#ee6666' }
+      lineStyle: { color: '#c084fc' },
+      itemStyle: { color: '#c084fc' }
     }
   ]
 })
@@ -223,12 +259,13 @@ const lineChartOption = ref<Record<string, unknown>>({
 
 .right-panel {
   right: 0;
+  width: 420px;
   background: linear-gradient(to left, rgba(0, 10, 30, 0.9), rgba(0, 10, 30, 0.4));
 }
 
 .chart-section {
   flex: 1;
-  min-height: 140px;
+  max-height: 260px;
 }
 
 .chart-subtitle {
@@ -241,4 +278,29 @@ const lineChartOption = ref<Record<string, unknown>>({
   display: flex;
   justify-content: space-between;
 }
+.list-section{
+  flex: 1;
+  min-height: 600px;
+}
+.panel-bottom {
+  background: rgba(255, 255, 255, 0.04); /* 灰色极弱半透明质感，亦可改用 rgba(35, 36, 50, 0.6) */
+  border: none;                           /* 纯色无边框 */
+  border-radius: 4px;                      /* 轻微硬朗倒角 */
+  padding: 12px 14px;                     /* 内部呼吸间距 */
+  box-sizing: border-box;
+}
+
+.panel-top {
+  flex-shrink: 0;                          /* 顶部概况/卡片区域高度固定不被挤压 */
+}
+
+.panel-bottom {
+  flex: 1;                                 /* 底部占据剩余高度 */
+  display: flex;
+  flex-direction: column;
+  gap: 16px;                               /* 内部多个图表/列表之间的纵向间距 */
+  min-height: 0;                           /* 防止 Flex 内部图表撑破容器高度 */
+  overflow: hidden;
+}
 </style>
+

@@ -1,22 +1,29 @@
 <template>
   <div class="security-overview">
+    <div class="overview-header">
+      <div class="security-header-title">
+         <img src="/img/title.png" class="overview-icon" alt="">
+      </div>
+     <div class="security-header-subtitle">
+        <div class="stat-label">当前社区总人数</div>
+      <div class="stat-value highlight">{{ totalPeople }}</div>
+     </div>
+      <div class="stat-item">
+        <div class="stat-label">黑名单</div>
+        <div class="stat-value">{{ blacklistCount }}</div>
+      </div>
+    </div>
     <div class="overview-bottom">
       <div class="stat-sub">
-        <img src="/img/title.png" class="overview-icon" alt="">
         <div class="sub-label bg-cyan">业主人数</div>
         <div class="sub-value">{{ ownerCount }}</div>
       </div>
       <div class="stat-sub">
-        <div class="stat-label">当前社区总人数</div>
-        <div class="stat-value highlight">{{ totalPeople }}</div>
         <div class="sub-label bg-purple">访客人数</div>
         <div class="sub-value">{{ visitorCount }}</div>
       </div>
       <div class="stat-sub">
-        <div class="stat-item">
-        <div class="stat-label">黑名单</div>
-        <div class="stat-value">{{ blacklistCount }}</div>
-        </div>
+
         <div class="sub-label bg-blue">外来人数</div>
         <div class="sub-value">{{ outsiderCount }}</div>
       </div>
@@ -73,7 +80,7 @@ defineProps<{
 }
 
 .stat-value.highlight {
-  font-size: 24px;
+  font-size: 26px;
   color: #409eff;
 }
 
@@ -81,7 +88,10 @@ defineProps<{
   display: flex;
   justify-content: space-between;
 }
-
+.overview-header{
+  display: flex;
+  justify-content: space-between;
+}
 .stat-sub {
   text-align: center;
 }

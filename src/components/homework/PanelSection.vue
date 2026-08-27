@@ -29,7 +29,7 @@ defineProps<{
 .section-title {
   font-size: 16px;
   font-weight: bold;
-  color: #fff;
+  color: #3479FF;
   margin-bottom: 15px;
   display: flex;
   align-items: center;

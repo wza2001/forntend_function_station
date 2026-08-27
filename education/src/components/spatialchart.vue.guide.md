@@ -5,19 +5,19 @@ type: Component
 version: 1.0.0
 dependencies:
   - "vue: ^3.3.0"
-  - "echarts: ^5.5.0"
-  - "vue-echarts: ^6.7.0"
+  - "echarts: ^5.4.3"
+  - "vue-echarts: ^6.6.1"
 routes: []
-parent_components: ["[[education/src/App.vue.guide]]"]
+parent_components: ["[[education/src/views/MapDashboardView.vue.guide]]"]
 child_components: []
-tags: [vue3, component, echarts, visualization]
+tags: [vue3, component, echarts, data-visualization]
 ---
 
 # 🧩 Component: `SpatialChart.vue`
 
 > [!abstract] Component Overview / 组件概览
-> This file is a reusable, wrapper Vue Component designed to render ECharts data visualizations. Architecturally, it abstracts away the complex import and setup processes required by ECharts. Instead of writing ECharts initialization logic in every single view, you import this component and simply pass it the configuration data.
-> 此文件是一个可重用的包装型 Vue 组件，旨在渲染 ECharts 数据可视化图表。在架构上，它抽象掉了 ECharts 所需的复杂导入和设置过程。你无需在每一个视图中编写 ECharts 的初始化逻辑，只需导入这个组件并简单地将配置数据传递给它即可。
+> `SpatialChart.vue` acts as a wrapper for ECharts, providing a clean, reactive Vue interface for rendering charts. It handles the complex tree-shaking setup required by ECharts Core to ensure minimal bundle sizes, abstracting this complexity away from the rest of the application.
+> `SpatialChart.vue` 充当 ECharts 的包装器，提供了一个干净、响应式的 Vue 接口来渲染图表。它处理了 ECharts Core 所需的复杂摇树优化设置，以确保最小的包大小，从而将这种复杂性从应用程序的其余部分中抽象出来。
 
 ---
 
@@ -32,6 +32,7 @@ tags: [vue3, component, echarts, visualization]
 >> </template>
 >>
 >> <script setup lang="ts">
+>> // Fixed Boilerplate Imports - ECharts Tree Shaking
 >> import { use } from 'echarts/core';
 >> import { CanvasRenderer } from 'echarts/renderers';
 >> import { PieChart, BarChart } from 'echarts/charts';
@@ -43,6 +44,7 @@ tags: [vue3, component, echarts, visualization]
 >> } from 'echarts/components';
 >> import VChart from 'vue-echarts';
 >>
+>> // Register ECharts components
 >> use([
 >>   CanvasRenderer,
 >>   PieChart,
@@ -53,8 +55,9 @@ tags: [vue3, component, echarts, visualization]
 >>   GridComponent
 >> ]);
 >>
+>> // Flexible/Common Syntax
 >> defineProps<{
->>   chartOption: Record<string, any>;
+>>   chartOption: Record<string, unknown>;
 >> }>();
 >> </script>
 >>
@@ -74,30 +77,28 @@ tags: [vue3, component, echarts, visualization]
 >>
 >> ## 🏗️ 1. Core Logic & Reactivity (核心逻辑与响应式)
 >>
->> ### ECharts Tree-Shaking Imports
->> - `import { use } from 'echarts/core';`: Imports the `use` function which is required to register specific ECharts components and charts. This is the core of the tree-shaking process.
->> - `import { CanvasRenderer } from 'echarts/renderers';`: Imports the rendering engine. ECharts can render using Canvas or SVG; this project explicitly chooses Canvas for better performance with large datasets.
->> - `import { PieChart, BarChart } from 'echarts/charts';`: Imports only the logic for Pie and Bar charts, avoiding the need to load code for unused chart types like lines or scatter plots.
->> - `import VChart from 'vue-echarts';`: Imports the official Vue component wrapper for ECharts, which simplifies passing props and listening to resize events.
+>> ### ECharts Tree Shaking Setup
+>> - Instead of importing the massive monolithic `echarts` library, this component imports only the specific modules needed (CanvasRenderer, PieChart, BarChart, etc.) from `echarts/core`.
+>> - The `use()` function registers these modules. This drastically reduces the final JavaScript bundle size sent to the browser.
+>> - (它没有导入庞大的整体 `echarts` 库，而是仅从 `echarts/core` 导入所需的特定模块。`use()` 函数注册这些模块。这极大地减少了发送到浏览器的最终 JavaScript 包大小。)
 >>
 >> ## 🔄 2. State Flow: Props & Emits (状态流转：输入与输出)
 >>
 >> ### 📥 Props (Inputs / 输入)
+>>
 >> | Prop Name | Type | Required | Description |
 >> | :--- | :--- | :--- | :--- |
->> | `chartOption` | `Record<string, any>` | Yes | The configuration object defining the ECharts visualization. (定义 ECharts 可视化的配置对象。) |
+>> | `chartOption` | `Record<string, unknown>` | Yes | The configuration object that dictates the chart's appearance and data, conforming to ECharts Option specifications. |
 >>
->> *TypeScript `Record<string, any>` Note*: While `any` defeats some purposes of TypeScript, ECharts configuration objects are notoriously complex and deeply nested. Using `Record<string, any>` is a common pragmatic shortcut.
+>> > [!info] TypeScript Record Type Strategy
+>> > Why use `Record<string, unknown>` instead of the specific `EChartsOption` type? When configuring ECharts with Vue 3 and TypeScript, the complex nested generic types of `EChartsOption` can sometimes cause deep type mismatch errors when passed as props or made reactive. Using `Record<string, unknown>` satisfies TypeScript and strict ESLint rules (like `@typescript-eslint/no-explicit-any`) while allowing the flexibility needed for dynamic chart configurations.
 >>
 >> ## ⏳ 3. Lifecycle & DOM Interaction (生命周期与DOM交互)
 >>
->> ### Initialization & DOM
->> - `<v-chart>`: This is the component provided by the `vue-echarts` wrapper library.
->> - `:option="chartOption"`: Binds the prop passed from the parent directly to the underlying ECharts instance.
->> - `autoresize`: A specific prop provided by `vue-echarts` that automatically listens to window resize events and redraws the canvas so the chart doesn't distort.
+>> - The `<v-chart>` component from `vue-echarts` handles the lifecycle integration internally, automatically calling ECharts `init()` on mount and `dispose()` on unmount, preventing memory leaks.
+>> - **`autoresize` prop**: A crucial attribute on `<v-chart>` that attaches a `ResizeObserver` to the container, ensuring the canvas redraws smoothly if the parent element's dimensions change.
 >>
 >> ## 🚨 4. Pitfalls, Bugs & Performance (陷阱、Bug与性能优化)
 >>
->> > [!warning] CSS Container Constraints / CSS 容器约束
->> > **Issue:** ECharts canvases absolutely require their parent containers to have a defined height and width. If the container is `0x0`, the chart will simply not render.
->> > **Fix:** This wrapper ensures a default height of `320px`, while filling `100%` of whatever width the parent gives it.
+>> > [!warning] ECharts Reactivity Trap
+>> > **Never** attempt to make an ECharts instance itself reactive using `ref` or `reactive`. Vue's Proxy system will attempt to recursively track the thousands of properties within the ECharts engine, causing catastrophic performance degradation and browser freezes. `vue-echarts` handles this safely internally.

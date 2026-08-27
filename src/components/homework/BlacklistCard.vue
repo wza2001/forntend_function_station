@@ -1,6 +1,6 @@
 <template>
   <div class="blacklist-stats">
-    <el-icon color="#67c23a" :size="40"><UserFilled /></el-icon>
+    <img src="/img/user.png" class="icon" alt="">
     <div class="stat-text">近一月出现黑名单次数</div>
     <div class="stat-value-large">{{ count }}</div>
   </div>
@@ -24,12 +24,22 @@ defineProps<{
 }
 
 .stat-text {
+  background: #23243280;
   font-size: 13px;
-  color: #ccc;
-}
+  color: #ffffff;
+  display: flex;
+  padding: 4px 10px;
+  text-align: center;
+  margin-left: 5px;
 
+}
+.icon{
+  object-fit: contain;
+  height: 45px;
+}
 .stat-value-large {
-  font-size: 28px;
+  font-family: "Microsoft YaHei"， sans-serif;
+  font-size: 48px;
   color: #00bcd4;
   font-weight: bold;
   margin-left: auto;
