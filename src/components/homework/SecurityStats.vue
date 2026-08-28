@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { DataBoard } from '@element-plus/icons-vue'
+
 
 defineProps<{
   totalPeople: number
