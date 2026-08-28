@@ -8,6 +8,9 @@
       <el-button type="success" size="large" @click="router.push('/homework')">
         Go to Homework Page
       </el-button>
+      <el-button type="success" size="large" @click="router.push('/Test1')">
+        Go to Test1
+      </el-button>
     </div>
   </div>
 </template>

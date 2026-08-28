@@ -1,6 +1,12 @@
 <template>
   <div class="dashboard-container">
+    <router-link to="/" class="back-btn">
+      <el-button type="primary" circle>
+        <el-icon><HomeFilled /></el-icon>
+      </el-button>
+    </router-link>
     <MapBackground />
+
     <div class="overlay-container">
       <LeftPanel class="left-panel" />
       <RightPanel class="right-panel" />
@@ -10,6 +16,9 @@
 </template>
 
 <script setup lang="ts">
+import {HomeFilled} from "@element-plus/icons-vue";
+import * as echarts from 'echarts'
+
 defineOptions({ name: 'TestOneView' })
 import MapBackground from '../components/Test1/MapBackground.vue'
 import LeftPanel from '../components/Test1/LeftPanel.vue'
@@ -27,6 +36,14 @@ import BottomMenu from '../components/Test1/BottomMenu.vue'
   color: #fff;
   font-family: sans-serif;
 }
+
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
 
 .overlay-container {
   position: absolute;
