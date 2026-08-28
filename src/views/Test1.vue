@@ -6,7 +6,6 @@
       </el-button>
     </router-link>
     <MapBackground />
-
     <div class="overlay-container">
       <LeftPanel class="left-panel" />
       <RightPanel class="right-panel" />
@@ -17,7 +16,6 @@
 
 <script setup lang="ts">
 import {HomeFilled} from "@element-plus/icons-vue";
-import * as echarts from 'echarts'
 
 defineOptions({ name: 'TestOneView' })
 import MapBackground from '../components/Test1/MapBackground.vue'
@@ -42,9 +40,8 @@ import BottomMenu from '../components/Test1/BottomMenu.vue'
   top: 20px;
   left: 20px;
   z-index: 100;
+  pointer-events: auto;
 }
-
-
 .overlay-container {
   position: absolute;
   top: 0;
